@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src"
+    "\\src",
+    "\\src\\mflix",
+    "\\src\\mflix\\API"
   ],
-  "SelectedNode": "\\.gitignore",
+  "SelectedNode": "\\src\\mflix\\db.py",
   "PreviewInSolutionExplorer": false
 }

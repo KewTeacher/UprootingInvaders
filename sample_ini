@@ -1,8 +1,0 @@
-
-
-
-[PROD]
-DB_URI = mongodb+srv://db_james2:Acejames4312@cluster0.ucwml.mongodb.net/myFirstDatabase?retryWrites=true&w=majority/sample_mflix
-
-[TEST]
-DB_URI = your_testing_db_uri (can be the same as Atlas, or a local MongoDB database)

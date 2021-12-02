@@ -2,9 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\mflix",
-    "\\src\\mflix\\API"
+    "\\src\\mflix"
   ],
-  "SelectedNode": "\\src\\mflix\\db.py",
+  "SelectedNode": "\\src\\mflix\\factory.py",
   "PreviewInSolutionExplorer": false
 }

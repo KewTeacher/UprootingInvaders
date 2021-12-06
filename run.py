@@ -1,11 +1,3 @@
-from flask import Flask
-
-app = Flask(__name__)
-
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
-
 from mflix.factory import create_app
 
 import os
@@ -21,4 +13,3 @@ if __name__ == "__main__":
     app.config['MONGO_URI'] = config['PROD']['DB_URI']
 
     app.run()
-© 2021 GitHub, Inc.

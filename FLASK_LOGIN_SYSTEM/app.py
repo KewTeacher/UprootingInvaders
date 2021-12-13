@@ -5,7 +5,7 @@ import bcrypt
 
 app = Flask(__name__)
 app.secret_key = "testing"
-client = pymongo.MongoClient("mongodb+srv://dbUser:<password>@cluster0.krsjk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+client = pymongo.MongoClient("mongodb+srv://dbUser:Q5Bti4iaonwiOSNZ@cluster0.krsjk.mongodb.net/uprooting_invaders?retryWrites=true&w=majority")
 db = client.get_database('total_records')
 records = db.register
 
@@ -50,7 +50,7 @@ if __name__ == "__main__":
 
 
 
-  @app.route('/logged_in')
+@app.route('/logged_in')
 def logged_in():
     if "email" in session:
         email = session["email"]
@@ -60,7 +60,7 @@ def logged_in():
 
 
 
-    @app.route("/login", methods=["POST", "GET"])
+@app.route("/login", methods=["POST", "GET"])
 def login():
     message = 'Please login to your account'
     if "email" in session:
@@ -91,32 +91,6 @@ def login():
 
 
 
-{% extends "base.html" %}
-{% block title %}Login System{% endblock %}
-
-{% block content %}
-
-{% if message  %}
-    <div class="alert alert-secondary" role="alert">
-        <p>{{ message }}</p>
-    </div>
-{% endif %}
-
-<form action="" method="post">
-  <div class="form-group">
-      <label for="InputEmail">Email address</label>
-      <input name="email" class="form-control" id="InputEmail"  placeholder="Enter email">
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-    <div class="form-group">
-      <label for="InputPassword">Password</label>
-      <input type="password" name="password" class="form-control" id="InputPassword" placeholder="Password">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-{% endblock %}
-
-
 @app.route("/logout", methods=["POST", "GET"])
 def logout():
     if "email" in session:
@@ -124,3 +98,8 @@ def logout():
         return render_template("signout.html")
     else:
         return render_template('index.html')
+
+
+
+if __name__ == "__main__":
+  app.run(debug=True)

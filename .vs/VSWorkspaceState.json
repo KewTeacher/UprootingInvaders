@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\mflix"
+    "\\mflix",
+    "\\templates"
   ],
-  "SelectedNode": "\\run.py",
+  "SelectedNode": "\\app.py",
   "PreviewInSolutionExplorer": false
 }

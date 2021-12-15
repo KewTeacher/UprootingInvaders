@@ -130,4 +130,5 @@ dmypy.json
 
 venv/
 .vs
-.vs/
+.vs/*
+.vs\

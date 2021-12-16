@@ -2,6 +2,12 @@
 
 {% block content %}
 	<div>
-		index
+		{% for datas in data %}
+		<div class="cards">
+			<span>{{ datas['_id'] }}</span>
+			<p>{{ datas['text']}}</p>
+		</div>
+		{% endfor %}
+
 	</div>
 {% endblock content %}

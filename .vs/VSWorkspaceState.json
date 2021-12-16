@@ -3,8 +3,7 @@
     "",
     "\\FLASK_LOGIN_SYSTEM",
     "\\FLASK_LOGIN_SYSTEM\\templates",
-    "\\FLASK_LOGIN_SYSTEM\\user",
-    "\\mflix\\api"
+    "\\FLASK_LOGIN_SYSTEM\\user"
   ],
   "SelectedNode": "\\FLASK_LOGIN_SYSTEM\\app.py",
   "PreviewInSolutionExplorer": false

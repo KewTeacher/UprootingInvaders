@@ -5,7 +5,7 @@ import bcrypt
 
 app = Flask(__name__)
 app.secret_key = "testing"
-client = pymongo.MongoClient("mongodb+srv://apple123:asdfghjkl@cluster0.krsjk.mongodb.net/uprooting_invaders?retryWrites=true&w=majority")
+client = pymongo.MongoClient("mongodb+srv://Afropuff05:Afropuff05@cjgsa.g8ohm.mongodb.net/uprooting_invaders?retryWrites=true&w=majority")
 db = client.get_database('total_records')
 records = db.register
 
@@ -18,10 +18,10 @@ def index():
     if request.method == "POST":
         user = request.form.get("fullname")
         email = request.form.get("email")
-        
+
         password1 = request.form.get("password1")
         password2 = request.form.get("password2")
-        
+
         user_found = records.find_one({"name": user})
         email_found = records.find_one({"email": email})
         if user_found:
@@ -37,10 +37,10 @@ def index():
             hashed = bcrypt.hashpw(password2.encode('utf-8'), bcrypt.gensalt())
             user_input = {'name': user, 'email': email, 'password': hashed}
             records.insert_one(user_input)
-            
+
             user_data = records.find_one({"email": email})
             new_email = user_data['email']
-   
+
             return render_template('logged_in.html', email=new_email)
     return render_template('index.html')
 
@@ -70,12 +70,12 @@ def login():
         email = request.form.get("email")
         password = request.form.get("password")
 
-       
+
         email_found = records.find_one({"email": email})
         if email_found:
             email_val = email_found['email']
             passwordcheck = email_found['password']
-            
+
             if bcrypt.checkpw(password.encode('utf-8'), passwordcheck):
                 session["email"] = email_val
                 return redirect(url_for('logged_in'))

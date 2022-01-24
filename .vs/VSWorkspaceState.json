@@ -1,16 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\FLASK_LOGIN_SYSTEM",
-    "\\FLASK_LOGIN_SYSTEM\\templates",
-    "\\FLASK_LOGIN_SYSTEM\\user",
-    "\\mflix",
-    "\\mflix\\api",
     "\\templates",
     "\\templates\\API",
     "\\templates\\FLASK_LOGIN_SYSTEM",
     "\\templates\\FLASK_LOGIN_SYSTEM\\user"
   ],
-  "SelectedNode": "\\run.py",
+  "SelectedNode": "\\app.py",
   "PreviewInSolutionExplorer": false
 }

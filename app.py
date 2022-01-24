@@ -34,8 +34,10 @@ json_result = json.loads(response.text)
 pprint(response.status_code)
 pprint(json_result)
 
-@app.route('/', methods=['GET'])
-def index():
-        req = requests.get('https://cat-fact.herokuapp.com/facts')
-        data = json.loads(req.content)
-        return render_template('index.html', data=data)
+
+@app.route('/plantid', methods=['GET'])
+def plantid():
+     #   req = requests.get('https://cat-fact.herokuapp.com/facts')
+     #   req = requests.Request('POST', url=api_endpoint, files=files, data=data)
+         #datas = json.loads(req.results)
+         return render_template('plantid.html', data=json_result)

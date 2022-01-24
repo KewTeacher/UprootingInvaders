@@ -2,6 +2,8 @@
 from flask import Flask, render_template, request, url_for, redirect, session
 import pymongo
 import bcrypt
+import requests
+import json
 
 app = Flask(__name__)
 app.secret_key = "testing"
@@ -100,6 +102,11 @@ def logout():
         return render_template('index.html')
 
 
+@app.route('/plantid', methods=['GET'])
+def plantid():
+        req = requests.get('https://cat-fact.herokuapp.com/facts')
+        data = json.loads(req.content)
+        return render_template('plantid.html', data=data)
 
 if __name__ == "__main__":
   app.run(debug=True)

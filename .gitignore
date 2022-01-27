@@ -132,3 +132,7 @@ dmypy.json
 venv/
 .vs
 .vs/
+.vs/slnx.sqlite
+.vs/UprootingInvaders/v16/.suo
+.vs/VSWorkspaceState.json
+*.vs

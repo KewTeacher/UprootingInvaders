@@ -40,4 +40,4 @@ def plantid():
      #   req = requests.get('https://cat-fact.herokuapp.com/facts')
      #   req = requests.Request('POST', url=api_endpoint, files=files, data=data)
          #datas = json.loads(req.results)
-         return render_template('plantid.html', data=json_result)
+         return render_template('plantid.html', data=json_result, image_1=image_data_1, image_2=image_data_2)

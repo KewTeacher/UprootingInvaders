@@ -12,6 +12,7 @@ db = client.get_database('total_records')
 records = db.register
 
 
+#User Information stuff
 @app.route("/", methods=['post', 'get'])
 def index():
     message = ''
@@ -51,7 +52,7 @@ if __name__ == "__main__":
     app.run(debug=True)
 
 
-
+#Login in 
 @app.route('/logged_in')
 def logged_in():
     if "email" in session:
@@ -61,7 +62,7 @@ def logged_in():
         return redirect(url_for("login"))
 
 
-
+#More User Login information
 @app.route("/login", methods=["POST", "GET"])
 def login():
     message = 'Please login to your account'
@@ -92,7 +93,7 @@ def login():
     return render_template('login.html', message=message)
 
 
-
+#Logout 
 @app.route("/logout", methods=["POST", "GET"])
 def logout():
     if "email" in session:
@@ -101,7 +102,7 @@ def logout():
     else:
         return render_template('index.html')
 
-
+#API stuff
 API_KEY = "2b10FP9NjPISdGPyjNBrQowG"	# Plant API_KEY here
 api_endpoint = f"https://my-api.plantnet.org/v2/identify/all?api-key={API_KEY}"
 
@@ -130,10 +131,10 @@ json_result = json.loads(response.text)
 print(response.status_code)
 print(json_result)
 
-
+#Plant ID stuff
 @app.route('/plantid', methods=['GET'])
 def plantid():
      #   req = requests.get('https://cat-fact.herokuapp.com/facts')
      #   req = requests.Request('POST', url=api_endpoint, files=files, data=data)
          #datas = json.loads(req.results)
-         return render_template('plantid.html', data=json_result)
+         return render_template('plantid.html', data=json_result, image_1=image_data_1, image_2=image_data_2)

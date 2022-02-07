@@ -7,7 +7,7 @@ import json
 
 app = Flask(__name__)
 app.secret_key = "testing"
-client = pymongo.MongoClient("mongodb+srv://***REMOVED***uprooting_invaders?retryWrites=true&w=majority")
+client = pymongo.MongoClient("mongodb+srv://***REMOVED***uprooting_invaders?retryWrites=true&w=majority&ssl_cert_reqs=ssl.CERT_NONE")
 db = client.get_database('total_records')
 records = db.register
 

@@ -5,15 +5,14 @@ import pymongo
 import bcrypt
 import requests
 import json
+import os
 
 app = Flask(__name__)
 app.secret_key = "testing"
 client = pymongo.MongoClient("mongodb+srv://Afropuff05:Afropuff05@cjgsa.g8ohm.mongodb.net/uprooting_invaders?retryWrites=true&w=majority")
 db = client.get_database('total_records')
 records = db.register
-app.config['MAX_CONTEXT_LENGTH'] = 16*1000*1000
-#app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-UPLOAD_FOLDER = '/GitHub/UprootingInvaders/uploads'
+UPLOAD_FOLDER = '/GitHub/UprootingInvaders/uploads/'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 #User Information stuff
@@ -137,12 +136,14 @@ print(json_result)
 
 #Uploading data stuff
 
+app.config['MAX_CONTEXT_LENGTH'] = 16*1000*1000
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/uploading', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part

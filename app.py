@@ -1,5 +1,5 @@
 
-from flask import Flask, flash, render_template, request, url_for, redirect, session
+from flask import Flask, flash, render_template, request, url_for, redirect, session, send_from_directory
 from werkzeug.utils import secure_filename 
 import pymongo
 import bcrypt
@@ -11,7 +11,10 @@ app.secret_key = "testing"
 client = pymongo.MongoClient("mongodb+srv://***REMOVED***uprooting_invaders?retryWrites=true&w=majority")
 db = client.get_database('total_records')
 records = db.register
-
+app.config['MAX_CONTEXT_LENGTH'] = 16*1000*1000
+#app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+UPLOAD_FOLDER = '/GitHub/UprootingInvaders/uploads'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 #User Information stuff
 @app.route("/", methods=['post', 'get'])
@@ -133,11 +136,7 @@ print(response.status_code)
 print(json_result)
 
 #Uploading data stuff
-UPLOAD_FOLDER = '/GitHub/UprootingInvaders/uploads'
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
-app=FLASK(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -169,6 +168,12 @@ def upload_file():
       <input type=submit value=Upload>
     </form>
     '''
+
+@app.route('/uploads/<name>')
+def download_file(name):
+    return send_from_directory(app.config["UPLOAD_FOLDER"], name)
+
+
 
 #Plant ID stuff
 @app.route('/plantid', methods=['GET'])

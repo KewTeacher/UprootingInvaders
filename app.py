@@ -164,6 +164,7 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('upload_file', name=filename))
+
     return '''
     <!doctype html>
     <title>Upload new File</title>
@@ -173,6 +174,9 @@ def upload_file():
       <input type=submit value=Upload>
     </form>
     '''
+
+def display_image(filename):
+    return redirect(url_for('static', filename='uploads/' + filename), code=301)
 
 #Plant ID stuff
 @app.route('/plantid', methods=['GET'])

@@ -134,9 +134,11 @@ print(response.status_code)
 print(json_result)
 
 #Uploading data stuff
-UPLOAD_FOLDER = "C:/Users/James/Documents/GitHub/UprootingInvaders/uploads"
+UPLOAD_FOLDER = "uploads/"
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
+if not os.path.exists(UPLOAD_FOLDER):
+    os.mkdir(UPLOAD_FOLDER)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -146,6 +148,7 @@ def allowed_file(filename):
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
+    return render_template("upload.html")
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:

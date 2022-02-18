@@ -148,7 +148,7 @@ def allowed_file(filename):
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
-    return render_template("upload.html")
+    return render_template("uploading.html")
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:

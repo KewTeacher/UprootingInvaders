@@ -148,7 +148,6 @@ def allowed_file(filename):
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
-    return render_template("uploading.html")
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -164,6 +163,8 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('upload_file', name=filename))
+
+    #return render_template("uploading.html", data=json_result)
 
     return '''
     <!doctype html>

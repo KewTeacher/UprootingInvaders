@@ -2,12 +2,12 @@
 
 {% block content %}
 <div>
-    <!- {% for datas in data.results %}
+    {% for datas in data.results %}
     <div class="cards">
         <span>{{ datas.species.scientificNameWithoutAuthor }}</span>
         <p>{{ datas }}</p>
     </div>
-    {% endfor %} -->
+    {% endfor %}
 
     <img src="/uploads/<name>"
          alt="image_1"

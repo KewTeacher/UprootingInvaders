@@ -104,38 +104,13 @@ def logout():
     else:
         return render_template('index.html')
 
-#API stuff
-API_KEY = "2b10FP9NjPISdGPyjNBrQowG"	# Plant API_KEY here
-api_endpoint = f"https://my-api.plantnet.org/v2/identify/all?api-key={API_KEY}"
 
-image_path_1 = "data/image_1.jpeg"
-image_data_1 = open(image_path_1, 'rb')
 
-image_path_2 = "data/image_2.jpeg"
-image_data_2 = open(image_path_2, 'rb')
-
-data = {
-	'organs': ['flower', 'leaf']
-}
-
-files = [
-	('images', (image_path_1, image_data_1)),
-	('images', (image_path_2, image_data_2))
-]
-
-req = requests.Request('POST', url=api_endpoint, files=files, data=data)
-prepared = req.prepare()
-
-s = requests.Session()
-response = s.send(prepared)
-json_result = json.loads(response.text)
-
-print(response.status_code)
-print(json_result)
 
 #Uploading data stuff
 UPLOAD_FOLDER = "uploads/"
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+
 
 if not os.path.exists(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)
@@ -148,6 +123,7 @@ def allowed_file(filename):
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
+    global name
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -160,12 +136,11 @@ def upload_file():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            filename= secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('upload_file', name=filename))
-
-    #return render_template("uploading.html", data=json_result)
-
+            return filename #problem here ree
+        
     return '''
     <!doctype html>
     <title>Upload new File</title>
@@ -175,6 +150,40 @@ def upload_file():
       <input type=submit value=Upload>
     </form>
     '''
+    #return render_template("uploading.html", data=json_result)
+
+
+
+
+#API stuff
+API_KEY = "2b10FP9NjPISdGPyjNBrQowG"	# Plant API_KEY here
+api_endpoint = f"https://my-api.plantnet.org/v2/identify/all?api-key={API_KEY}"
+
+
+def run_api(name):
+    image_path = "uploads/"+ name
+    image_data = open(image_path, 'rb')
+    return image_path, image_data
+
+    data = {
+	'organs': ['flower', 'leaf']
+}
+
+    files = [
+	('images', (image_path, image_data)),
+]
+
+    req = requests.Request('POST', url=api_endpoint, files=files, data=data)
+    prepared = req.prepare()
+
+    s = requests.Session()
+    response = s.send(prepared)
+    json_result = json.loads(response.text)
+
+    print(response.status_code)
+    print(json_result)
+
+
 
 def display_image(filename):
     return redirect(url_for('static', filename='uploads/' + filename), code=301)
@@ -185,4 +194,5 @@ def plantid():
      #   req = requests.get('https://cat-fact.herokuapp.com/facts')
      #   req = requests.Request('POST', url=api_endpoint, files=files, data=data)
          #datas = json.loads(req.results)
-         return render_template('plantid.html', data=json_result, image_1=image_data_1, image_2=image_data_2)
+         run_api(filename)
+         return render_template('plantid.html', data=json_result, image=image_data)

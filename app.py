@@ -7,12 +7,14 @@ import requests
 import json
 import os
 
+
 app = Flask(__name__)
 app.secret_key = "testing"
 client = pymongo.MongoClient("mongodb+srv://***REMOVED***uprooting_invaders?retryWrites=true&w=majority")
 db = client.get_database('total_records')
 records = db.register
-
+global currentfilename
+currentfilename = ""
 
 #User Information stuff
 @app.route("/", methods=['post', 'get'])
@@ -123,7 +125,6 @@ def allowed_file(filename):
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
-    global name
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -137,9 +138,12 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename= secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('upload_file', name=filename))
-            return filename #problem here ree
+            global currentfilename
+            currentfilename = secure_filename(currentfilename)
+            filename = currentfilename
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], currentfilename))
+            return redirect(url_for('upload_file', name=currentfilename))
+            
         
     return '''
     <!doctype html>
@@ -194,5 +198,6 @@ def plantid():
      #   req = requests.get('https://cat-fact.herokuapp.com/facts')
      #   req = requests.Request('POST', url=api_endpoint, files=files, data=data)
          #datas = json.loads(req.results)
-         run_api(filename)
+         global currentfilename
+         run_api(currentfilename)
          return render_template('plantid.html', data=json_result, image=image_data)

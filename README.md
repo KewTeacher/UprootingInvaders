@@ -3,3 +3,5 @@ An environmental issue that is pervasive to everything around us are invasive sp
 
 # When running the program, open it up in command prompt from git, then activate the venv with "venv\Scripts\activate" then "flask run"
 # If we want to make the server publically available, add --host=0.0.0.0
+
+https://hackersandslackers.com/flask-blueprints/

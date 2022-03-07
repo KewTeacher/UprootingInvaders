@@ -1,5 +1,9 @@
 {% extends 'layout.html'%}
 
+{% block title %}
+Upload some stuff here i guess
+{% endblock %}
+
 {% block content %}
 
 <!doctype html>
@@ -10,17 +14,5 @@
     <input type=submit value=Upload>
 </form>
 
-<div>
-    {% for datas in data.results %}
-    <div class="cards">
-        <span>{{ datas.species.scientificNameWithoutAuthor }}</span>
-        <p>{{ datas }}</p>
-    </div>
-    {% endfor %}
+{% endblock %}
 
-    <img src="/uploads/<name>"
-         alt="image_1"
-         width="450"
-         height="500">
-</div>
-{% endblock content %}

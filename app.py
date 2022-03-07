@@ -11,7 +11,7 @@ import os
 app = Flask(__name__)
 app.secret_key = "testing"
 client = pymongo.MongoClient("mongodb+srv://Afropuff05:Afropuff05@cjgsa.g8ohm.mongodb.net/uprooting_invaders?retryWrites=true&w=majority")
-db = client.get_database('total_records')
+db = client.get_database('uprooting_invaders')
 records = db.register
 global currentfilename
 currentfilename = ""
@@ -143,9 +143,10 @@ def upload_file():
             filename = currentfilename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], currentfilename))
             return redirect(url_for('upload_file', name=currentfilename))
-            
+            return render_template("uploading.html", data=json_result)
+
         
-    return '''
+""" return 
     <!doctype html>
     <title>Upload new File</title>
     <h1>Upload new File</h1>
@@ -153,9 +154,8 @@ def upload_file():
       <input type=file name=file>
       <input type=submit value=Upload>
     </form>
-    '''
-    #return render_template("uploading.html", data=json_result)
-
+    """
+    
 
 
 

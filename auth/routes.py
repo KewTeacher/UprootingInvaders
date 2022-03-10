@@ -50,7 +50,7 @@ if __name__ == "__main__":
 
 
 #Login in 
-@app.route('/logged_in')
+@auth_bp.route('/logged_in')
 def logged_in():
     if "email" in session:
         email = session["email"]
@@ -60,7 +60,7 @@ def logged_in():
 
 
 #More User Login information
-@app.route("/login", methods=["POST", "GET"])
+@auth_bp.route("/login", methods=["POST", "GET"])
 def login():
     message = 'Please login to your account'
     if "email" in session:
@@ -91,7 +91,7 @@ def login():
 
 
 #Logout 
-@app.route("/logout", methods=["POST", "GET"])
+@auth_bp.route("/logout", methods=["POST", "GET"])
 def logout():
     if "email" in session:
         session.pop("email", None)

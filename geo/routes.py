@@ -3,8 +3,8 @@ from flask import current_app as app
 
 
 # Blueprint Configuration
-auth_bp = Blueprint(
-    'map_bp', __name__,
+geo_bp = Blueprint(
+    'geo_bp', __name__,
     template_folder='templates',
     static_folder='static'
 )

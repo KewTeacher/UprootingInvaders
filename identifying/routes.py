@@ -14,7 +14,7 @@ home_bp = Blueprint(
 )
 #Uploading data stuff
 UPLOAD_FOLDER = "uploads/"
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 if not os.path.exists(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)

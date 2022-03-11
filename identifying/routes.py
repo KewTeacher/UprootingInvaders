@@ -1,6 +1,10 @@
-from flask import Blueprint
-from flask import current_app as app
 
+from flask import Flask, Blueprint, flash, render_template, request, url_for, redirect
+from flask import current_app as app
+from werkzeug.utils import secure_filename
+import requests
+import json
+import os
 
 # Blueprint Configuration
 home_bp = Blueprint(
@@ -8,9 +12,6 @@ home_bp = Blueprint(
     template_folder='templates',
     static_folder='static'
 )
-
-home_bp.route('/upload', methods=['GET', 'POST'])
-
 #Uploading data stuff
 UPLOAD_FOLDER = "uploads/"
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
@@ -19,6 +20,8 @@ if not os.path.exists(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+@home_bp.route('/upload', methods=['GET', 'POST'])
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -38,23 +41,14 @@ def upload_file():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            filename= secure_filename(file.filename)
-            global currentfilename
-            currentfilename = secure_filename(currentfilename)
-            filename = currentfilename
+            #filename = secure_filename(file.filename)
+            #global currentfilename
+            #currentfilename = secure_filename(currentfilename)
+            #filename = currentfilename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], currentfilename))
             return redirect(url_for('upload_file', name=currentfilename))
-            return render_template("uploading.html", data=json_result)
+    return render_template("upload.html", data=json_result)
 
-""" return 
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
-      <input type=file name=file>
-      <input type=submit value=Upload>
-    </form>
-    """
 
 #API stuff
 API_KEY = "2b10FP9NjPISdGPyjNBrQowG"	# Plant API_KEY here

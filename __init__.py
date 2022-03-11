@@ -13,7 +13,7 @@ def creat_app():
 
         #Register Blueprints
         app.register_blueprint(auth.auth_bp)
-        app.register_blueprint(map.map_bp)
+        app.register_blueprint(geo.geo_bp)
         app.register_blueprint(identifying.identifying_bp)
 
 

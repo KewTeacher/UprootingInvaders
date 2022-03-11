@@ -1,6 +1,6 @@
 from flask import Flask
 
-def creat_app():
+def create_app():
     #Create Flask Application
     app = Flask(__name__, instance_relative_config=False)
     app.config.from_object('config.Config')
@@ -8,7 +8,7 @@ def creat_app():
     with app.app_conext():
         #Import parts of our application
         from .auth import routes
-        from .data import routes
+        from .geo import routes
         from .identifying import routes
 
         #Register Blueprints

@@ -10,4 +10,4 @@ geo_bp = Blueprint(
 )
 
 
-@auth_bp.route('/', methods = ['POST', 'GET'])
+@geo_bp.route('/', methods = ['POST', 'GET'])

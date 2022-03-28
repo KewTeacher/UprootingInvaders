@@ -1,6 +1,5 @@
 
 from flask import Flask, Blueprint, flash, render_template, request, url_for, redirect
-from flask import current_app as app
 from werkzeug.utils import secure_filename
 import requests
 import json

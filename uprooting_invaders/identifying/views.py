@@ -15,9 +15,13 @@ identifying = Blueprint(
 UPLOAD_FOLDER = "uploads/"
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
- s = requests.Session()
- response = s.send(prepared)
- json_result = json.loads(response.text)
+API_KEY = "2b10FP9NjPISdGPyjNBrQowG"	# Plant API_KEY here
+api_endpoint = f"https://my-api.plantnet.org/v2/identify/all?api-key={API_KEY}"
+req = requests.Request('POST', url=api_endpoint, files=files, data=data)
+prepared = req.prepare()
+s = requests.Session()
+response = s.send(prepared)
+json_result = json.loads(response.text)
 
 if not os.path.exists(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)

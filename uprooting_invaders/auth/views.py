@@ -1,14 +1,14 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, session, request
 
 # Blueprint Configuration
-auth_bp = Blueprint(
-    'auth_bp', __name__,
+auth = Blueprint(
+    'auth', __name__,
     template_folder='templates',
     static_folder='static'
 )
 
 
-@auth_bp.route('/', methods = ['POST', 'GET'])
+@auth.route('/', methods = ['POST', 'GET'])
 def index():
     message = ''
     if "email" in session:
@@ -48,7 +48,7 @@ if __name__ == "__main__":
 
 
 #Login in
-@auth_bp.route('/logged_in')
+@auth.route('/logged_in')
 def logged_in():
     if "email" in session:
         email = session["email"]
@@ -58,7 +58,7 @@ def logged_in():
 
 
 #More User Login information
-@auth_bp.route("/login", methods=["POST", "GET"])
+@auth.route("/login", methods=["POST", "GET"])
 def login():
     message = 'Please login to your account'
     if "email" in session:
@@ -89,7 +89,7 @@ def login():
 
 
 #Logout
-@auth_bp.route("/logout", methods=["POST", "GET"])
+@auth.route("/logout", methods=["POST", "GET"])
 def logout():
     if "email" in session:
         session.pop("email", None)

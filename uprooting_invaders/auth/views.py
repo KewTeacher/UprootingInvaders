@@ -1,4 +1,8 @@
-from flask import Blueprint, render_template, session, request
+from flask import Flask, flash, render_template, request, url_for, redirect, session, Blueprint
+from flask.templating import render_template
+from pprint import pprint
+import requests
+import json
 from werkzeug.utils import secure_filename
 import pymongo
 import bcrypt
@@ -22,7 +26,7 @@ currentfilename = ""
 def index():
     message = ''
     if "email" in session:
-        return redirect(url_for("logged_in"))
+        return redirect(url_for("auth.logged_in"))
     if request.method == "POST":
         user = request.form.get("fullname")
         email = request.form.get("email")
@@ -33,6 +37,7 @@ def index():
         user_found = records.find_one({"name": user})
         email_found = records.find_one({"email": email})
         if user_found:
+            message = 'There already is a user by that name'
             message = 'There already is a user by that name'
             return render_template('index.html', message=message)
         if email_found:
@@ -72,7 +77,7 @@ def logged_in():
 def login():
     message = 'Please login to your account'
     if "email" in session:
-        return redirect(url_for("logged_in"))
+        return redirect(url_for("auth.logged_in"))
 
     if request.method == "POST":
         email = request.form.get("email")
@@ -86,10 +91,10 @@ def login():
 
             if bcrypt.checkpw(password.encode('utf-8'), passwordcheck):
                 session["email"] = email_val
-                return redirect(url_for('logged_in'))
+                return redirect(url_for('auth.logged_in'))
             else:
                 if "email" in session:
-                    return redirect(url_for("logged_in"))
+                    return redirect(url_for("auth.logged_in"))
                 message = 'Wrong password'
                 return render_template('login.html', message=message)
         else:

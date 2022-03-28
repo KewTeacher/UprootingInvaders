@@ -11,8 +11,7 @@ map = Blueprint(
     static_folder='static'
 )
 
-
-@geo.route('/maps', methods = ['POST', 'GET'])
+@map.route('/maps')
 
 def hello():
     return 'Hello World'

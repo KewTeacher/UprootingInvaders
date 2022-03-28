@@ -40,12 +40,9 @@ def upload_file():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            #filename = secure_filename(file.filename)
-            #global currentfilename
-            #currentfilename = secure_filename(currentfilename)
-            #filename = currentfilename
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], currentfilename))
-            return redirect(url_for('upload_file', name=currentfilename))
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('upload_file', name=filename))
     return render_template("upload.html", data=json_result)
 
 

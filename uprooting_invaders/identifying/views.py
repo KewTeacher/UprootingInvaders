@@ -6,8 +6,8 @@ import json
 import os
 
 # Blueprint Configuration
-home = Blueprint(
-    'home', __name__,
+identifying = Blueprint(
+    'identifying', __name__,
     template_folder='templates',
     static_folder='static'
 )
@@ -15,12 +15,16 @@ home = Blueprint(
 UPLOAD_FOLDER = "uploads/"
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
+ s = requests.Session()
+ response = s.send(prepared)
+ json_result = json.loads(response.text)
+
 if not os.path.exists(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@home_bp.route('/upload', methods=['GET', 'POST'])
+@identifying.route('/upload', methods=['GET', 'POST'])
 
 def allowed_file(filename):
     return '.' in filename and \

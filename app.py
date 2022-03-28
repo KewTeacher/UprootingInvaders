@@ -9,6 +9,8 @@ import pymongo
 import bcrypt
 import os
 from . uprooting_invaders.auth.views import auth
+from . uprooting_invaders.map.viewyomama import map
+from . uprooting_invaders.identifying.views import identifying
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -41,6 +43,8 @@ def allowed_file(filename):
 
 # register blueprint
 app.register_blueprint(auth)
+app.register_blueprint(map)
+app.register_blueprint(identifying)
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():

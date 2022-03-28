@@ -7,8 +7,8 @@ import json
 import os
 
 # Blueprint Configuration
-home_bp = Blueprint(
-    'home_bp', __name__,
+home = Blueprint(
+    'home', __name__,
     template_folder='templates',
     static_folder='static'
 )
@@ -91,6 +91,3 @@ def plantid():
          global currentfilename
          run_api(currentfilename)
          return render_template('plantid.html', data=json_result, image=image_data)
-
-
-

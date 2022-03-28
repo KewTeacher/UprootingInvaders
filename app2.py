@@ -1,19 +1,14 @@
-from flask import Flask, flash, render_template, request, url_for, redirect, session, Blueprint
-from flask.templating import render_template
-from pprint import pprint
-import requests
-import json
 
+from flask import Flask, flash, render_template, request, url_for, redirect, session
 from werkzeug.utils import secure_filename
 import pymongo
 import bcrypt
+import requests
+import json
 import os
-from . uprooting_invaders.auth.views import auth
+#from uprooting_invaders.views import auth_bp
 
-app = Flask(__name__, static_url_path='/static')
-
-
-
+app = Flask(__name__)
 app.secret_key = "testing"
 client = pymongo.MongoClient("mongodb+srv://***REMOVED***uprooting_invaders?retryWrites=true&w=majority")
 db = client.get_database('uprooting_invaders')
@@ -40,7 +35,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # register blueprint
-app.register_blueprint(auth)
+#app.register_blueprint(auth_bp)
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():

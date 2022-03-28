@@ -19,8 +19,7 @@ auth.secret_key = "testing"
 client = pymongo.MongoClient("mongodb+srv://***REMOVED***uprooting_invaders?retryWrites=true&w=majority")
 db = client.get_database('uprooting_invaders')
 records = db.register
-global currentfilename
-currentfilename = ""
+
 
 @auth.route('/', methods = ['POST', 'GET'])
 def index():

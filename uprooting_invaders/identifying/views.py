@@ -1,5 +1,6 @@
 
 from flask import Flask, Blueprint, flash, render_template, request, url_for, redirect
+from flask import current_app as app
 from werkzeug.utils import secure_filename
 import requests
 import json
@@ -17,11 +18,22 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 API_KEY = "2b10FP9NjPISdGPyjNBrQowG"	# Plant API_KEY here
 api_endpoint = f"https://my-api.plantnet.org/v2/identify/all?api-key={API_KEY}"
+
+"""
+data = {
+    'organs': ['flower', 'leaf']
+}
+
+files = [
+	('images', (image_path, image_data)),
+]
+
 req = requests.Request('POST', url=api_endpoint, files=files, data=data)
 prepared = req.prepare()
 s = requests.Session()
 response = s.send(prepared)
 json_result = json.loads(response.text)
+"""
 
 if not os.path.exists(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)
@@ -49,7 +61,7 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            file.save(os.path.join(identifying.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('upload_file', name=filename))
     return render_template("upload.html", data=json_result)
 
@@ -87,7 +99,7 @@ def display_image(filename):
     return redirect(url_for('static', filename='uploads/' + filename), code=301)
 
 #Plant ID stuff
-@app.route('/plantid', methods=['GET'])
+@identifying.route('/plantid', methods=['GET'])
 def plantid():
      #   req = requests.get('https://cat-fact.herokuapp.com/facts')
      #   req = requests.Request('POST', url=api_endpoint, files=files, data=data)

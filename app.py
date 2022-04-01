@@ -13,7 +13,9 @@ from . uprooting_invaders.map.viewyomama import map
 from . uprooting_invaders.identifying.views import identifying
 
 app = Flask(__name__, static_url_path='/static')
-
+with app.app_context():
+    identifying()
+    
 
 
 app.secret_key = "testing"

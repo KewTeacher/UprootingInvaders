@@ -47,7 +47,7 @@ def allowed_file(filename):
 app.register_blueprint(auth)
 app.register_blueprint(map)
 app.register_blueprint(identifying)
-
+"""
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
@@ -69,7 +69,7 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], currentfilename))
             return redirect(url_for('upload_file', name=currentfilename))
             return render_template("uploading.html", data=json_result)
-
+"""
 
 """ return
     <!doctype html>
@@ -118,6 +118,7 @@ def display_image(filename):
     return redirect(url_for('static', filename='uploads/' + filename), code=301)
 
 #Plant ID stuff
+"""
 @app.route('/plantid', methods=['GET'])
 def plantid():
      #   req = requests.get('https://cat-fact.herokuapp.com/facts')
@@ -126,3 +127,4 @@ def plantid():
          global currentfilename
          run_api(currentfilename)
          return render_template('plantid.html', data=json_result, image=image_data)
+"""

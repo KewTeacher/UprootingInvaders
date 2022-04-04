@@ -1,5 +1,5 @@
 
-from flask import Flask, Blueprint, flash, render_template, request, url_for, redirect
+from flask import Flask, Blueprint, flash, render_template, request, url_for, redirect, session
 from flask import current_app as app
 from werkzeug.utils import secure_filename
 import requests
@@ -122,7 +122,7 @@ def plantid():
             file.save(os.path.join(UPLOAD_FOLDER, filename))
             json_result={}
             image_data=""
-            return render_template('plantid.html', data=json_result, image=image_data)
+            return render_template('plantid.html', data=json_result, image=image_data, email=session["email"])
     else:
-        return render_template('upload.html')
+        return render_template('upload.html', email=session["email"])
         #return render_template('plantid.html', data=json_result, image=image_data)

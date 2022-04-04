@@ -97,30 +97,32 @@ def run_api(name):
 
 def display_image(filename):
     return redirect(url_for('static', filename='uploads/' + filename), code=301)
-
+ #   req = requests.get('https://cat-fact.herokuapp.com/facts')
+ #   req = requests.Request('POST', url=api_endpoint, files=files, data=data)
+     #datas = json.loads(req.results)
+    #global currentfilename
+     #run_api(currentfilename)
 #Plant ID stuff
 @identifying.route('/plantid', methods=['POST', 'GET'])
 def plantid():
-     #   req = requests.get('https://cat-fact.herokuapp.com/facts')
-     #   req = requests.Request('POST', url=api_endpoint, files=files, data=data)
-         #datas = json.loads(req.results)
-        #global currentfilename
-         #run_api(currentfilename)
-         if request.method == "POST":
-                # check if the post request has the file part
-            if 'file' not in request.files:
-                flash('No file part')
-                return redirect(request.url)
-            file = request.files['file']
-            # If the user does not select a file, the browser submits an
-            # empty file without a filename.
-            if file.filename == '':
-                flash('No selected file')
-                return redirect(request.url)
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(UPLOAD_FOLDER, filename))
-                return redirect(url_for('upload_file', name=filename)) 
-      else:
-        render_template('upload.html')
+    if request.method == "POST":
+
+            # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # If the user does not select a file, the browser submits an
+        # empty file without a filename.
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
+            json_result={}
+            image_data=""
+            return render_template('plantid.html', data=json_result, image=image_data)
+    else:
+        return render_template('upload.html')
         #return render_template('plantid.html', data=json_result, image=image_data)

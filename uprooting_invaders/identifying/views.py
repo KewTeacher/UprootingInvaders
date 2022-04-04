@@ -38,7 +38,7 @@ json_result = json.loads(response.text)
 if not os.path.exists(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+#app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @identifying.route('/upload', methods=['GET', 'POST'])
 

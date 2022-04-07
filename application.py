@@ -8,17 +8,17 @@ from werkzeug.utils import secure_filename
 import pymongo
 import bcrypt
 import os
-from . uprooting_invaders.auth.views import auth
-from . uprooting_invaders.map.viewyomama import map
-from . uprooting_invaders.identifying.views import identifying
+from uprooting_invaders.auth.views import auth
+from uprooting_invaders.map.viewyomama import map
+from uprooting_invaders.identifying.views import identifying
 
-app = Flask(__name__, static_url_path='/static')
+application = Flask(__name__, static_url_path='/static')
 #with app.app_context():
 #    identifying()
 
 
 
-app.secret_key = "testing"
+application.secret_key = "testing"
 client = pymongo.MongoClient("mongodb+srv://Afropuff05:Afropuff05@cjgsa.g8ohm.mongodb.net/uprooting_invaders?retryWrites=true&w=majority")
 db = client.get_database('uprooting_invaders')
 records = db.register
@@ -37,18 +37,18 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 if not os.path.exists(UPLOAD_FOLDER):
     os.mkdir(UPLOAD_FOLDER)
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # register blueprint
-app.register_blueprint(auth)
-app.register_blueprint(map)
-app.register_blueprint(identifying)
+application.register_blueprint(auth)
+application.register_blueprint(map)
+application.register_blueprint(identifying)
 """
-@app.route('/upload', methods=['GET', 'POST'])
+@application.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part
@@ -66,7 +66,7 @@ def upload_file():
             global currentfilename
             currentfilename = secure_filename(currentfilename)
             filename = currentfilename
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], currentfilename))
+            file.save(os.path.join(application.config['UPLOAD_FOLDER'], currentfilename))
             return redirect(url_for('upload_file', name=currentfilename))
             return render_template("uploading.html", data=json_result)
 """
@@ -119,7 +119,7 @@ def display_image(filename):
 
 #Plant ID stuff
 """
-@app.route('/plantid', methods=['GET'])
+@application.route('/plantid', methods=['GET'])
 def plantid():
      #   req = requests.get('https://cat-fact.herokuapp.com/facts')
      #   req = requests.Request('POST', url=api_endpoint, files=files, data=data)
@@ -128,3 +128,8 @@ def plantid():
          run_api(currentfilename)
          return render_template('plantid.html', data=json_result, image=image_data)
 """
+if __name__ == "__main__":
+    # Setting debug to True enables debug output. This line should be
+    # removed before deploying a production app.
+    application.debug = True
+    application.run()

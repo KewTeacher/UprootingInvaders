@@ -27,6 +27,7 @@ def home():
     country = get_country(ip_address)
     # number of countries where the largest number of speakers are French
     # data from http://download.geonames.org/export/dump/countryInfo.txt
+    return render_template('googlemap.html', ip_address = ip_address)
     if country in ('BL', 'MF', 'TF', 'BF', 'BI', 'BJ', 'CD', 'CF', 'CG', 'CI', 'DJ', 'FR', 'GA', 'GF', 'GN', 'GP', 'MC', 'MG', 'ML', 'MQ', 'NC'):
         return "Bonjour"
     return "Hello"

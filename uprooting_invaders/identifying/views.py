@@ -1,10 +1,11 @@
 
 from flask import Flask, Blueprint, flash, render_template, request, url_for, redirect, session
-from flask import current_app as app
+from flask import current_app 
 from werkzeug.utils import secure_filename
 import requests
 import json
 import os
+import logging
 
 # Blueprint Configuration
 identifying = Blueprint(
@@ -108,7 +109,7 @@ def plantid():
             #json_result={}
             #image_data=""
             json_result, image_data = run_api(filename)
-            print(json_result, image_data)
+            current_app.logger.info(json_result, image_data)
             return render_template('plantid.html', data=json_result, image=image_data, email=session["email"])
     else:
         return render_template('upload.html', email=session["email"])

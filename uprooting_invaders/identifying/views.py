@@ -47,23 +47,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-def upload_file():
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # If the user does not select a file, the browser submits an
-        # empty file without a filename.
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(identifying.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('upload_file', name=filename))
-    return render_template("upload.html", data=json_result)
+
 
 
 #API stuff
@@ -74,7 +58,6 @@ api_endpoint = f"https://my-api.plantnet.org/v2/identify/all?api-key={API_KEY}"
 def run_api(name):
     image_path = "uploads/"+ name
     image_data = open(image_path, 'rb')
-    return image_path, image_data
 
     data = {
 	'organs': ['flower', 'leaf']
@@ -93,10 +76,12 @@ def run_api(name):
 
     print(response.status_code)
     print(json_result)
+    return json_result, image_data
 
 
 def display_image(filename):
     return redirect(url_for('static', filename='uploads/' + filename), code=301)
+   
  #   req = requests.get('https://cat-fact.herokuapp.com/facts')
  #   req = requests.Request('POST', url=api_endpoint, files=files, data=data)
      #datas = json.loads(req.results)
@@ -120,9 +105,13 @@ def plantid():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(UPLOAD_FOLDER, filename))
-            json_result={}
-            image_data=""
+            #json_result={}
+            #image_data=""
+            json_result, image_data = run_api(filename)
+            print(json_result, image_data)
             return render_template('plantid.html', data=json_result, image=image_data, email=session["email"])
     else:
         return render_template('upload.html', email=session["email"])
         #return render_template('plantid.html', data=json_result, image=image_data)
+
+

@@ -61,7 +61,7 @@ def run_api(name):
     image_data = open(image_path, 'rb')
 
     data = {
-	'organs': ['flower', 'leaf']
+	'organs': ['leaf']
 }
 
     files = [
@@ -74,6 +74,7 @@ def run_api(name):
     s = requests.Session()
     response = s.send(prepared)
     json_result = json.loads(response.text)
+    json_result.results[0:3]
 
     print(response.status_code)
     print(json_result)

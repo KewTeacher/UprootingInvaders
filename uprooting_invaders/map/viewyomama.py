@@ -1,9 +1,12 @@
 from flask import Blueprint, render_template, session, request, Flask
 from werkzeug.utils import secure_filename
+from flask_googlemaps import GoogleMaps
+from datetime import datetime
 import pymongo
 import bcrypt
 import os
 import requests
+import googlemaps
 
 # Blueprint Configuration
 map = Blueprint(
@@ -12,22 +15,29 @@ map = Blueprint(
     static_folder='static'
 )
 
-def get_country(ip_address):
-    try:
-        response = requests.get("http://ip-api.com/json/{}".format(ip_address))
-        js = response.json()
-        country = js['countryCode']
-        return country
-    except Exception as e:
-        return "Unknown"
-
 @map.route('/maps')
 def home():
-    ip_address = request.remote_addr
-    country = get_country(ip_address)
-    # number of countries where the largest number of speakers are French
-    # data from http://download.geonames.org/export/dump/countryInfo.txt
-    return render_template('googlemap.html', ip_address = ip_address)
-    if country in ('BL', 'MF', 'TF', 'BF', 'BI', 'BJ', 'CD', 'CF', 'CG', 'CI', 'DJ', 'FR', 'GA', 'GF', 'GN', 'GP', 'MC', 'MG', 'ML', 'MQ', 'NC'):
-        return "Bonjour"
-    return "Hello"
+    app = Flask(__name__)
+    app.config['AIzaSyBUawhsXSBBvMpWVCywU1lUUtm6dDrwtME'] = "8JZ7i18MjFuM35dJHq70n3Hx4"
+    GoogleMaps(app)
+
+
+'''
+{% extends "base.html" %}
+{% block title %}Register System{% endblock %}
+
+{% block content %}
+
+<iframe width="800"
+        height="600"
+        style="border:0"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBUawhsXSBBvMpWVCywU1lUUtm6dDrwtME
+    &q=ip_address">
+</iframe>
+
+{% endblock %}
+
+'''

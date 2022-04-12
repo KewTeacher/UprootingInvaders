@@ -3,7 +3,7 @@ from flask.templating import render_template
 from pprint import pprint
 import requests
 import json
-
+import logging
 from werkzeug.utils import secure_filename
 import pymongo
 import bcrypt

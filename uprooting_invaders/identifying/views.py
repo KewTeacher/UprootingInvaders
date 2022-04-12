@@ -1,12 +1,12 @@
 
 from flask import Flask, Blueprint, flash, render_template, request, url_for, redirect, session
-from flask import current_app 
+from flask import current_app
 from werkzeug.utils import secure_filename
 import requests
 import json
 import os
 import logging
-
+import sys
 # Blueprint Configuration
 identifying = Blueprint(
     'identifying', __name__,
@@ -65,9 +65,11 @@ def run_api(name):
 }
 
     files = [
-	('images', (image_path, image_data)),
+	('images', (image_path, image_data)),('images', (image_path, image_data))
 ]
-
+    print("files and data", file=sys.stdout)
+    print(str(files), file=sys.stdout)
+    print(str(data), file=sys.stdout)
     req = requests.Request('POST', url=api_endpoint, files=files, data=data)
     prepared = req.prepare()
 
@@ -75,14 +77,14 @@ def run_api(name):
     response = s.send(prepared)
     json_result = json.loads(response.text)
 
-    print(response.status_code)
-    print(json_result)
+    print(response.status_code, file=sys.stdout)
+    print(json_result, file=sys.stdout)
     return json_result, image_data
 
 
 def display_image(filename):
     return redirect(url_for('static', filename='uploads/' + filename), code=301)
-   
+
  #   req = requests.get('https://cat-fact.herokuapp.com/facts')
  #   req = requests.Request('POST', url=api_endpoint, files=files, data=data)
      #datas = json.loads(req.results)
@@ -109,10 +111,9 @@ def plantid():
             #json_result={}
             #image_data=""
             json_result, image_data = run_api(filename)
-            current_app.logger.info(json_result, image_data)
+            print(str(json_result), file=sys.stdout)
             return render_template('plantid.html', data=json_result, image=image_data, email=session["email"])
     else:
+        print("hi there", file=sys.stderr)
         return render_template('upload.html', email=session["email"])
         #return render_template('plantid.html', data=json_result, image=image_data)
-
-

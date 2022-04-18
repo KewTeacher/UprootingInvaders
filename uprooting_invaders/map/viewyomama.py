@@ -1,12 +1,13 @@
 from flask import Blueprint, render_template, session, request, Flask
 from werkzeug.utils import secure_filename
 from flask_googlemaps import GoogleMaps
+from flask_googlemaps import Map
 from datetime import datetime
 import pymongo
 import bcrypt
 import os
 import requests
-import googlemaps
+#import googlemaps
 
 # Blueprint Configuration
 map = Blueprint(
@@ -14,12 +15,40 @@ map = Blueprint(
     template_folder='templates',
     static_folder='static'
 )
+#map.config['AIzaSyBUawhsXSBBvMpWVCywU1lUUtm6dDrwtME'] = "8JZ7i18MjFuM35dJHq70n3Hx4"
+#GoogleMaps(map)
 
 @map.route('/maps')
 def home():
-    app = Flask(__name__)
-    app.config['AIzaSyBUawhsXSBBvMpWVCywU1lUUtm6dDrwtME'] = "8JZ7i18MjFuM35dJHq70n3Hx4"
-    GoogleMaps(app)
+    #app = Flask(__name__)
+
+    mymap = Map(
+        identifier="view-side",
+        lat=37.4419,
+        lng=-122.1419,
+        markers=[(37.4419, -122.1419)]
+    )
+    sndmap = Map(
+        identifier="sndmap",
+        lat=37.4419,
+        lng=-122.1419,
+        markers=[
+          {
+             'icon': 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+             'lat': 37.4419,
+             'lng': -122.1419,
+             'infobox': "<b>Hello World</b>"
+          },
+          {
+             'icon': 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+             'lat': 37.4300,
+             'lng': -122.1400,
+             'infobox': "<b>Hello World from other place</b>"
+          }
+        ]
+    )
+    return render_template('map.html', mymap=mymap, sndmap=sndmap)
+
 
 
 '''

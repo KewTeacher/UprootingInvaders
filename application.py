@@ -11,6 +11,7 @@ import os
 from uprooting_invaders.auth.views import auth
 from uprooting_invaders.map.viewyomama import map
 from uprooting_invaders.identifying.views import identifying
+from flask_googlemaps import GoogleMaps
 
 application = Flask(__name__, static_url_path='/static')
 #with app.app_context():
@@ -25,7 +26,8 @@ records = db.register
 global currentfilename
 currentfilename = ""
 
-
+application.config['AIzaSyBUawhsXSBBvMpWVCywU1lUUtm6dDrwtME'] = "8JZ7i18MjFuM35dJHq70n3Hx4"
+GoogleMaps(application)
 #User Information stuff
 
 

@@ -6,6 +6,7 @@ import requests
 import json
 import os
 import logging
+import sys
 
 # Blueprint Configuration
 identifying = Blueprint(
@@ -67,17 +68,17 @@ def run_api(name):
     files = [
 	('images', (image_path, image_data)),
 ]
-
+    print(str(data), file=sys.stdout)
     req = requests.Request('POST', url=api_endpoint, files=files, data=data)
     prepared = req.prepare()
 
     s = requests.Session()
     response = s.send(prepared)
     json_result = json.loads(response.text)
-    json_result.results[0:3]
+    #json_result.results[0:3]
 
     print(response.status_code)
-    print(json_result)
+    print(json_result, file=sys.stdout)
     return json_result, image_data
 
 

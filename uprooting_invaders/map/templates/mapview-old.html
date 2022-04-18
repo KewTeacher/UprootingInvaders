@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+     {{map.js}}
+  </head>
+  <body>
+    <h1>Flask Google Maps Example Loadign current space</h1>
+
+
+    <h3>Example for different icons in multiple markers with infoboxes</h3>
+
+    <div class="coords">
+      <p id="lat"></p>
+      <p id="long"></p>
+    </div>
+      {{map.html}}
+      <button onclick="document.getElementById('lat').innerHTML=current_coords.latitude">Get the Lat</button>
+        <button onclick="document.getElementById('long').innerHTML=current_coords.longitude">Get the Long</button>
+    <script type="text/javascript">
+    //document.getElementById(lat).innerHTML =  current_coords.latitude.toString();
+  //  document.getElementById(long).innerHTML =  current_coords.longitude.toString();
+    //initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+/*  $(window).on('load',function() {
+      alert("Document loaded successful!", current_coords );
+        console.log("initialLocation", current_coords);
+     });
+*/
+    </script>
+  </body>
+</html>

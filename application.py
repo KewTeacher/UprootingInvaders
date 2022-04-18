@@ -12,6 +12,7 @@ from uprooting_invaders.auth.views import auth
 from uprooting_invaders.map.viewyomama import map
 from uprooting_invaders.identifying.views import identifying
 from flask_googlemaps import GoogleMaps
+from flask_googlemaps import Map
 
 application = Flask(__name__, static_url_path='/static')
 #with app.app_context():
@@ -26,8 +27,8 @@ records = db.register
 global currentfilename
 currentfilename = ""
 
-application.config['AIzaSyBUawhsXSBBvMpWVCywU1lUUtm6dDrwtME'] = "8JZ7i18MjFuM35dJHq70n3Hx4"
-GoogleMaps(application)
+#application.config['***REMOVED***'] = "8JZ7i18MjFuM35dJHq70n3Hx4"
+GoogleMaps(application, key="***REMOVED***")
 #User Information stuff
 
 
@@ -119,6 +120,31 @@ def run_api(name):
 def display_image(filename):
     return redirect(url_for('static', filename='uploads/' + filename), code=301)
 
+
+# Blueprint Configuration
+map = Blueprint(
+    'map', __name__,
+    template_folder='templates',
+    static_folder='static'
+)
+
+"""
+@application.route('/map')
+def home():
+    #app = Flask(__name__)
+    #current_app.config['AIzaSyBUawhsXSBBvMpWVCywU1lUUtm6dDrwtME'] = "8JZ7i18MjFuM35dJHq70n3Hx4"
+    #GoogleMaps(current_app)
+
+    map = Map(
+        identifier="sndmap",
+        center_on_user_location=True,
+        lat=0,
+        lng=0,
+
+    )
+    return render_template('maps.html', map=map)
+
+"""
 #Plant ID stuff
 """
 @application.route('/plantid', methods=['GET'])

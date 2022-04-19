@@ -6,8 +6,10 @@ import pymongo
 import bcrypt
 import os
 import requests
+
 from flask import current_app
 #import googlemaps
+
 
 # Blueprint Configuration
 map = Blueprint(
@@ -15,6 +17,7 @@ map = Blueprint(
     template_folder='templates',
     static_folder='static'
 )
+
 
 #GoogleMaps(current_app, key="AIzaSyCE6B6puwN1nW6tPTUmYRFy76jCRGX9hTM")
 
@@ -31,6 +34,7 @@ def home():
 
     )
     return render_template('maps.html', map=map)
+
 
 
 

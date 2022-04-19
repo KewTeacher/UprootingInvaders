@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, session, request, Flask
 from werkzeug.utils import secure_filename
 from flask_googlemaps import GoogleMaps
+from flask_googlemaps import Map
 from datetime import datetime
 import pymongo
 import bcrypt

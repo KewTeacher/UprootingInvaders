@@ -16,7 +16,7 @@ auth = Blueprint(
 )
 
 auth.secret_key = "testing"
-client = pymongo.MongoClient("mongodb+srv://***REMOVED***uprooting_invaders?retryWrites=true&w=majority")
+client = pymongo.MongoClient("mongodb+srv://Afropuff05:Afropuff05@cjgsa.g8ohm.mongodb.net/uprooting_invaders?retryWrites=true&w=majority")
 db = client.get_database('uprooting_invaders')
 records = db.register
 

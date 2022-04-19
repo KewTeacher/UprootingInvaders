@@ -17,13 +17,10 @@ map = Blueprint(
     static_folder='static'
 )
 
-#GoogleMaps(current_app, key="***REMOVED***")
 
 @map.route('/maps')
 def home():
-    #app = Flask(__name__)
-    #current_app.config['AIzaSyBUawhsXSBBvMpWVCywU1lUUtm6dDrwtME'] = "8JZ7i18MjFuM35dJHq70n3Hx4"
-    #GoogleMaps(current_app)
+
     map = Map(
         identifier="map",
         center_on_user_location=True,
@@ -47,7 +44,7 @@ def home():
         loading="lazy"
         allowfullscreen
         referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBUawhsXSBBvMpWVCywU1lUUtm6dDrwtME
+        src="https://www.google.com/maps/embed/v1/place?key=
     &q=ip_address">
 </iframe>
 

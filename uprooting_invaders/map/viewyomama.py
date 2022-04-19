@@ -1,14 +1,15 @@
 from flask import Blueprint, render_template, session, request, Flask
 from werkzeug.utils import secure_filename
 from flask_googlemaps import GoogleMaps
-from flask_googlemaps import Map
 from datetime import datetime
 import pymongo
 import bcrypt
 import os
 import requests
+
 from flask import current_app
 #import googlemaps
+
 
 # Blueprint Configuration
 map = Blueprint(
@@ -16,6 +17,7 @@ map = Blueprint(
     template_folder='templates',
     static_folder='static'
 )
+
 
 #GoogleMaps(current_app, key="AIzaSyCE6B6puwN1nW6tPTUmYRFy76jCRGX9hTM")
 
@@ -32,6 +34,7 @@ def home():
 
     )
     return render_template('maps.html', map=map)
+
 
 
 

@@ -13,22 +13,23 @@ from uprooting_invaders.map.viewyomama import map
 from uprooting_invaders.identifying.views import identifying
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map
+from dotenv import load_dotenv
 
 application = Flask(__name__, static_url_path='/static')
 #with app.app_context():
 #    identifying()
 
-
+load_dotenv()
 
 application.secret_key = "testing"
-client = pymongo.MongoClient("mongodb+srv://Afropuff05:Afropuff05@cjgsa.g8ohm.mongodb.net/uprooting_invaders?retryWrites=true&w=majority")
+client = pymongo.MongoClient(os.getenv("DB_CONNECTION"))
 db = client.get_database('uprooting_invaders')
 records = db.register
 global currentfilename
 currentfilename = ""
 
-#application.config['AIzaSyCE6B6puwN1nW6tPTUmYRFy76jCRGX9hTM'] = "8JZ7i18MjFuM35dJHq70n3Hx4"
-GoogleMaps(application, key="AIzaSyCE6B6puwN1nW6tPTUmYRFy76jCRGX9hTM")
+
+GoogleMaps(application, key=os.getenv("GOOGLE_MAPS_API"))
 #User Information stuff
 
 

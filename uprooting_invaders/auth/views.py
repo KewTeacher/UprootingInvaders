@@ -7,6 +7,7 @@ from werkzeug.utils import secure_filename
 import pymongo
 import bcrypt
 import os
+import sys
 
 # Blueprint Configuration
 auth = Blueprint(
@@ -52,8 +53,9 @@ def index():
 
             user_data = records.find_one({"email": email})
             new_email = user_data['email']
+            print(str(user_data), file=sys.stdout)
 
-            return render_template('logged_in.html', email=new_email)
+            return render_template('logged_in.html', email=new_email, user_data=str(user_data))
     return render_template('index.html')
 
 #end of code to run it
@@ -65,6 +67,8 @@ if __name__ == "__main__":
 @auth.route('/logged_in')
 def logged_in():
     if "email" in session:
+        #print(str(user_data), file=sys.stdout)
+        print(str(session), file=sys.stdout)
         email = session["email"]
         return render_template('logged_in.html', email=email)
     else:
@@ -90,6 +94,9 @@ def login():
 
             if bcrypt.checkpw(password.encode('utf-8'), passwordcheck):
                 session["email"] = email_val
+                session["name"]= email_found['name']
+                session['id']=str(email_found['_id'])
+                print(session, file=sys.stdout)
                 return redirect(url_for('auth.logged_in'))
             else:
                 if "email" in session:

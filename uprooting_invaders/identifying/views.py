@@ -112,9 +112,10 @@ def plantid():
             #image_data=""
             json_result, image_data = run_api(filename)
             #json_result[0:2]
+            data=json_result["results"][0:3]
             print(str(json_result["results"]), file=sys.stdout)
             current_app.logger.info(json_result, image_data)
-            return render_template('plantid.html', data=json_result, image=image_data, email=session["email"])
+            return render_template('plantid.html', data=data, image=image_data, email=session["email"])
     else:
         return render_template('upload.html', email=session["email"])
         #return render_template('plantid.html', data=json_result, image=image_data)

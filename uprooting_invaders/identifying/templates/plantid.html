@@ -7,9 +7,10 @@
 		<div class="cards">
 			<span>{{ datas.species.scientificName }}</span>
 			<p>{{ datas['score'] * 100 | round }}%</p>
+			<p>{{ datas['Inv'] }}</p>
 		</div>
 		{% endfor %}
-
+		
 		<img src= "{{image }}"
 			 alt ="image_1"
 			 width="450"

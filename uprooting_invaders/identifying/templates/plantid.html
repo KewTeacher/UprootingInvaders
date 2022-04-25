@@ -1,6 +1,7 @@
 {% extends 'base.html'%}
 
 {% block content %}
+
 	<div>
 		{% for datas in data %}
 		<div class="cards">
@@ -9,9 +10,21 @@
 		</div>
 		{% endfor %}
 
-		<img src= "{{ image }}" 
+		<img src= "{{image }}"
 			 alt ="image_1"
 			 width="450"
 			 height="500">
 	</div>
+<script type="text/javascript">
+	if (navigator.geolocation) {
+	 navigator.geolocation.getCurrentPosition(function (position) {
+			 //initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+			 current_coords = position.coords;
+			 console.log("coords", current_coords);
+
+
+	 });
+	}
+
+</script>
 {% endblock content %}

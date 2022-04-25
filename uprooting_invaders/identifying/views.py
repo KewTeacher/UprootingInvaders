@@ -1,12 +1,13 @@
 
 from flask import Flask, Blueprint, flash, render_template, request, url_for, redirect, session
-from flask import current_app 
+from flask import current_app
 from werkzeug.utils import secure_filename
 import requests
 import json
 import os
 import logging
 import sys
+import pymongo
 
 # Blueprint Configuration
 identifying = Blueprint(
@@ -21,6 +22,11 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 API_KEY = "2b10FP9NjPISdGPyjNBrQowG"	# Plant API_KEY here
 api_endpoint = f"https://my-api.plantnet.org/v2/identify/all?api-key={API_KEY}"
 
+
+
+client = pymongo.MongoClient(os.getenv("DB_CONNECTION"))
+db = client.get_database('uprooting_invaders')
+allplants = db.allplants
 """
 data = {
     'organs': ['flower', 'leaf']
@@ -84,7 +90,7 @@ def run_api(name):
 
 def display_image(filename):
     return redirect(url_for('static', filename='uploads/' + filename), code=301)
-   
+
  #   req = requests.get('https://cat-fact.herokuapp.com/facts')
  #   req = requests.Request('POST', url=api_endpoint, files=files, data=data)
      #datas = json.loads(req.results)
@@ -114,10 +120,17 @@ def plantid():
             #json_result[0:2]
             data=json_result["results"][0:3]
             print(str(json_result["results"]), file=sys.stdout)
-            current_app.logger.info(json_result, image_data)
+            #this is where you can run a loop to query the all plants collection
+            # loop though data and append if invasive
+            #for i in data:
+                #find the plant on the allplants collection
+                #plant_found = allplants.find_one({"Scientific Name with Author": data.someproperty})
+                #find out if it's invasive
+                #if
+                #if so add the Inv data to i
+
+
             return render_template('plantid.html', data=data, image=image_data, email=session["email"])
     else:
         return render_template('upload.html', email=session["email"])
         #return render_template('plantid.html', data=json_result, image=image_data)
-
-

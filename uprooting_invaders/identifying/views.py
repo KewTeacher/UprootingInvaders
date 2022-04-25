@@ -16,7 +16,7 @@ identifying = Blueprint(
     static_folder='static'
 )
 #Uploading data stuff
-UPLOAD_FOLDER = "uploads/"
+UPLOAD_FOLDER = "static/uploads/"
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 API_KEY = "2b10FP9NjPISdGPyjNBrQowG"	# Plant API_KEY here
@@ -65,7 +65,7 @@ api_endpoint = f"https://my-api.plantnet.org/v2/identify/all?api-key={API_KEY}"
 
 
 def run_api(name):
-    image_path = "uploads/"+ name
+    image_path = "static/uploads/"+ name
     image_data = open(image_path, 'rb')
 
     data = {
@@ -84,9 +84,9 @@ def run_api(name):
     json_result = json.loads(response.text)
     #json_result.results[0:3]
 
-    print(response.status_code)
-    print(json_result, file=sys.stdout)
-    return json_result, image_data
+    #print(response.status_code)
+    #print(json_result, file=sys.stdout)
+    return json_result, image_path
 
 
 def display_image(filename):
@@ -117,27 +117,31 @@ def plantid():
             file.save(os.path.join(UPLOAD_FOLDER, filename))
             #json_result={}
             #image_data=""
-            json_result, image_data = run_api(filename)
+            json_result, image_path = run_api(filename)
             #json_result[0:2]
             data=json_result["results"][0:3]
-      
+
            # print(str(data) , file=sys.stdout)
             #this is where you can run a loop to query the all plants collection
             # loop though data and append if invasive
             for i in data:
                 #find the plant on the allplants collection
+                print('********************', file=sys.stdout)
+                print('info from api', file=sys.stdout)
                 print(i , file=sys.stdout)
-                plant_found = allplants.find_one({"Scientific Name with Author": {'$regex': i['species']['scientificName']}})
+                plant_found = allplants.find_one({"Scientific Name with Author": {'$regex': i['species']['scientificNameWithoutAuthor']}})
                 #find out if it's invasive
-                try: 
+                print('info from db', file=sys.stdout)
+                print(plant_found, file=sys.stdout)
+                try:
                     i['Inv'] = plant_found['Inv']
                 except:
                     print('non invasive', file=sys.stdout)
-            
+
                 #if so add the Inv data to i
 
 
-            return render_template('plantid.html', data=data, image=image_data, email=session["email"])
+            return render_template('plantid.html', data=data, image=image_path, email=session["email"])
     else:
         return render_template('upload.html', email=session["email"])
         #return render_template('plantid.html', data=json_result, image=image_data)

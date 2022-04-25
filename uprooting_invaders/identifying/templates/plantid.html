@@ -10,7 +10,8 @@
 			<p>{{ datas['Inv'] }}</p>
 		</div>
 		{% endfor %}
-		
+		<p>This is just to show how to get the user id: {{session['id']}}</p>
+		<p>This is to show the coords: <span id="coords"></span></p>
 		<img src= "{{image }}"
 			 alt ="image_1"
 			 width="450"
@@ -22,6 +23,7 @@
 			 //initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 			 current_coords = position.coords;
 			 console.log("coords", current_coords);
+			 document.getElementById("coords").innerHTML = current_coords.latitude.toString() +', ' + current_coords.longitude.toString() ;
 
 
 	 });

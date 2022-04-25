@@ -27,6 +27,7 @@ api_endpoint = f"https://my-api.plantnet.org/v2/identify/all?api-key={API_KEY}"
 client = pymongo.MongoClient(os.getenv("DB_CONNECTION"))
 db = client.get_database('uprooting_invaders')
 allplants = db.allplants
+findings = db.findings
 """
 data = {
     'organs': ['flower', 'leaf']
@@ -124,9 +125,9 @@ def plantid():
             # loop though data and append if invasive
             #for i in data:
                 #find the plant on the allplants collection
-                #plant_found = allplants.find_one({"Scientific Name with Author": data.someproperty})
+                #plant_found = allplants.find_one({"Scientific Name with Author": data.scientificNameAuthorship})
                 #find out if it's invasive
-                #if
+                #if plant_found['Inv'] 
                 #if so add the Inv data to i
 
 

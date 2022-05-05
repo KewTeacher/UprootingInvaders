@@ -13,7 +13,7 @@
 		<p>This is just to show how to get the user id: {{session['id']}}</p>
 		<p>This is to show the coords: <span id="coords"></span></p>
 		<img src= "{{image }}"
-			 alt ="image_1"
+			 alt ="image"
 			 width="450"
 			 height="500">
 	</div>
@@ -29,5 +29,14 @@
 	 });
 	}
 
+	function sendPlantinfo() {
+		let userinfo = document.getElementbyId().value
+		console.log(userinfo)
+		const request = new XMLHttpRequest()
+		request.open('POST', '/plantid/${JSON.stringify(userinfo, current_coords)}')
+		print request
+		request.send();
+	}
+	
 </script>
 {% endblock content %}

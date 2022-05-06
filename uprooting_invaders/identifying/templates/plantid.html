@@ -8,6 +8,7 @@
 			<span>{{ datas.species.scientificName }}</span>
 			<p>{{ datas['score'] * 100 | round }}%</p>
 			<p>{{ datas['Inv'] }}</p>
+			<button type="button" onclick="sendPlantinfo()">Submit</button>
 		</div>
 		{% endfor %}
 		<p>This is just to show how to get the user id: {{session['id']}}</p>
@@ -16,6 +17,7 @@
 			 alt ="image"
 			 width="450"
 			 height="500">
+		
 	</div>
 <script type="text/javascript">
 	if (navigator.geolocation) {
@@ -29,14 +31,13 @@
 	 });
 	}
 
-	function sendPlantinfo() {
-		let userinfo = document.getElementbyId().value
-		console.log(userinfo)
-		const request = new XMLHttpRequest()
-		request.open('POST', '/plantid/${JSON.stringify(userinfo, current_coords)}')
-		print request
-		request.send();
-	}
-	
+    function sendPlantinfo() {
+        let userinfo = document.getElementbyId("userinfo").value
+        console.log(userinfo)
+        const request = new XMLHttpRequest()
+        request.open('POST', '/plantid/${JSON.stringify(userinfo, current_coords)}')
+        print request
+        request.send();
+    }
 </script>
 {% endblock content %}

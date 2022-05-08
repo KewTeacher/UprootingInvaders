@@ -2,6 +2,28 @@
 
 {% block content %}
 
+<script type="text/javascript">
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function (position) {
+			//initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+			current_coords = position.coords;
+			console.log("coords", current_coords);
+			document.getElementById("coords").innerHTML = current_coords.latitude.toString() + ', ' + current_coords.longitude.toString();
+
+
+		});
+	}
+
+	function sendPlantinfo(){
+		let userinfo = document.getElementById("coords").value
+		console.log(userinfo)
+		const request = new XMLHttpRequest()
+		request.open('POST', '/plantid/${JSON.stringify(current_coords)}')
+		//print request;
+		request.send();
+	}
+</script>
+
 	<div>
 		{% for datas in data %}
 		<div class="cards">
@@ -19,25 +41,5 @@
 			 height="500">
 		
 	</div>
-<script type="text/javascript">
-	if (navigator.geolocation) {
-	 navigator.geolocation.getCurrentPosition(function (position) {
-			 //initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-			 current_coords = position.coords;
-			 console.log("coords", current_coords);
-			 document.getElementById("coords").innerHTML = current_coords.latitude.toString() +', ' + current_coords.longitude.toString() ;
 
-
-	 });
-	}
-
-    function sendPlantinfo() {
-        let userinfo = document.getElementbyId("userinfo").value
-        console.log(userinfo)
-        const request = new XMLHttpRequest()
-        request.open('POST', '/plantid/${JSON.stringify(userinfo, current_coords)}')
-        print request
-        request.send();
-    }
-</script>
 {% endblock content %}

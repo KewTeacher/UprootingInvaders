@@ -146,9 +146,8 @@ def plantid():
         return render_template('upload.html', email=session["email"])
         #return render_template('plantid.html', data=json_result, image=image_data)
 
-@identifying.route('/sendPlantinfo/<string:userinfo> <string:current_coords>', methods = ['POST'])
-def sendingplantinfo(userinfo, current_coords):
-    plantinfo = json.loads(userinfo, current_coords)
+def sendingplantinfo():
+    plantinfo = json.loads(current_coords)
     uploaded_info = plantinfo
     print(uploaded_info)
     return('/')

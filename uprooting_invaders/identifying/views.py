@@ -140,14 +140,19 @@ def plantid():
 
                 #if so add the Inv data to i
 
-
+    
             return render_template('plantid.html', data=data, image=image_path, email=session["email"])
+        return data,session["email"]
     else:
         return render_template('upload.html', email=session["email"])
         #return render_template('plantid.html', data=json_result, image=image_data)
 
-def sendingplantinfo():
-    plantinfo = json.loads(current_coords)
-    uploaded_info = plantinfo
-    print(uploaded_info)
-    return('/')
+
+@identifying.route('/savingid/<string:current_coords>', methods=['POST', 'GET'])
+def save_findings(current_coords):
+    finding={}
+    coords = json.loads(current_coords)
+    finding["loc"]["latitude"]=coords["latitude"]["longitude"]
+    print(coords, session["id"], file=sys.stdout)
+    return "hello world"
+

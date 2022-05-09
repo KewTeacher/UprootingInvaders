@@ -6,6 +6,7 @@ from datetime import datetime
 import pymongo
 import bcrypt
 import os
+import sys
 import requests
 from flask import current_app
 #import googlemaps
@@ -17,37 +18,36 @@ map = Blueprint(
     static_folder='static'
 )
 
+client = pymongo.MongoClient(os.getenv("DB_CONNECTION"))
+db = client.get_database('uprooting_invaders')
+allplants = db.all_plants
+findings = db.findings
 
 @map.route('/maps')
 def home():
+    found = findings.find()
+    invlist = []
+    noninvlist = []
+ 
+    for i in found:
+        print (i, file=sys.stdout)
+        i["lat"] = i["loc"] ["latitude"]
+        i["long"] = i["loc"] ["longitude"]
+        if len (i["Inv"]) > 0:
+            i["icon"] = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+            invlist.append (i)
+        else:
+            i["icon"] = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+            invlist.append (i)
+    print (invlist, file=sys.stdout)
+    print (noninvlist, file=sys.stdout)
 
     map = Map(
         identifier="map",
         center_on_user_location=True,
         lat=0,
         lng=0,
+        markers=invlist
 
     )
     return render_template('maps.html', map=map)
-
-
-
-'''
-{% extends "base.html" %}
-{% block title %}Register System{% endblock %}
-
-{% block content %}
-
-<iframe width="800"
-        height="600"
-        style="border:0"
-        loading="lazy"
-        allowfullscreen
-        referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.google.com/maps/embed/v1/place?key=
-    &q=ip_address">
-</iframe>
-
-{% endblock %}
-
-'''

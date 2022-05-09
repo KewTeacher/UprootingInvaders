@@ -28,19 +28,21 @@ def home():
     found = findings.find()
     invlist = []
     noninvlist = []
- 
+    
     for i in found:
+        dict = {}
         print (i, file=sys.stdout)
-        i["lat"] = i["loc"] ["latitude"]
-        i["long"] = i["loc"] ["longitude"]
+        dict["lat"] = i["loc"] ["latitude"]
+        dict["lng"] = i["loc"] ["longitude"]
+        dict["infobox"] = "<P> hello </P>"
         if len (i["Inv"]) > 0:
-            i["icon"] = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
-            invlist.append (i)
+            dict["icon"] = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+            invlist.append (dict)
         else:
-            i["icon"] = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
-            invlist.append (i)
+            dict["icon"] = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+            invlist.append (dict)
     print (invlist, file=sys.stdout)
-    print (noninvlist, file=sys.stdout)
+    #print (noninvlist, file=sys.stdout)
 
     map = Map(
         identifier="map",

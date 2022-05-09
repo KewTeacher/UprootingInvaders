@@ -3,10 +3,13 @@
 {% block content %}
 
 <script type="text/javascript">
+		var current_coords = {};
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function (position) {
 			//initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-			current_coords = position.coords;
+			//it look like the geolocation object just won't json stringify so let's build up our own js object with what we need
+			current_coords.latitude = position.coords.latitude;
+
 			console.log("coords", current_coords);
 			document.getElementById("coords").innerHTML = current_coords.latitude.toString() + ', ' + current_coords.longitude.toString();
 
@@ -18,7 +21,9 @@
 		let userinfo = document.getElementById("coords").value
 		console.log(userinfo)
 		const request = new XMLHttpRequest()
-		request.open('POST', '/plantid/${JSON.stringify(current_coords)}')
+		console.log("coords", current_coords);
+		console.log("coords l string", JSON.stringify(current_coords));
+		request.open('POST', `/plantid/${JSON.stringify(current_coords)}`)
 		//print request;
 		request.send();
 	}
@@ -39,7 +44,7 @@
 			 alt ="image"
 			 width="450"
 			 height="500">
-		
+
 	</div>
 
 {% endblock content %}

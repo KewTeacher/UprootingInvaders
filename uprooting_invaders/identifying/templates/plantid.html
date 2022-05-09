@@ -7,7 +7,9 @@
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function (position) {
 			//initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-			//it look like the geolocation object just won't json stringify so let's build up our own js object with what we need
+
+			//it looks like the geolocation object just won't json stringify so let's build up
+			//our own js object with what we need
 			current_coords.latitude = position.coords.latitude;
 
 			console.log("coords", current_coords);
@@ -23,6 +25,7 @@
 		const request = new XMLHttpRequest()
 		console.log("coords", current_coords);
 		console.log("coords l string", JSON.stringify(current_coords));
+		//note the `backtick` syntax below
 		request.open('POST', `/plantid/${JSON.stringify(current_coords)}`)
 		//print request;
 		request.send();

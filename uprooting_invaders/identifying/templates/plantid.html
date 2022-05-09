@@ -11,6 +11,8 @@
 			//it looks like the geolocation object just won't json stringify so let's build up
 			//our own js object with what we need
 			current_coords.latitude = position.coords.latitude;
+			current_coords.longitude = position.coords.longitude;
+			
 
 			console.log("coords", current_coords);
 			document.getElementById("coords").innerHTML = current_coords.latitude.toString() + ', ' + current_coords.longitude.toString();
@@ -26,7 +28,7 @@
 		console.log("coords", current_coords);
 		console.log("coords l string", JSON.stringify(current_coords));
 		//note the `backtick` syntax below
-		request.open('POST', `/plantid/${JSON.stringify(current_coords)}`)
+		request.open('POST', `/savingid/${JSON.stringify(current_coords)}`)
 		//print request;
 		request.send();
 	}

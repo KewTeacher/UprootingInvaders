@@ -36,7 +36,7 @@ def home():
         dict["lng"] = i["loc"] ["longitude"]
         dict["infobox"] = "<P> hello </P>"
         if len (i["Inv"]) > 0:
-            dict["icon"] = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+            dict["icon"] = image_path = 'static/invasive plant!.png'
             invlist.append (dict)
         else:
             dict["icon"] = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'

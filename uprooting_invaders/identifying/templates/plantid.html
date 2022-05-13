@@ -21,14 +21,14 @@
 		});
 	}
 
-	function sendPlantinfo(){
-		let userinfo = document.getElementById("coords").value
-		console.log(userinfo)
+	function sendPlantinfo(datas){
+		
 		const request = new XMLHttpRequest()
+		current_coords.datas=datas
 		console.log("coords", current_coords);
 		console.log("coords l string", JSON.stringify(current_coords));
 		//note the `backtick` syntax below
-		request.open('POST', `/savingid/${JSON.stringify(current_coords)}`)
+		request.open('POST', `/savingid/${JSON.stringify(current_coords)}`)W
 		//print request;
 		request.send();
 	}
@@ -36,11 +36,15 @@
 
 	<div>
 		{% for datas in data %}
+<script>
+	thisdata = {{ datas }};
+
+</script>
 		<div class="cards">
 			<span>{{ datas.species.scientificName }}</span>
 			<p>{{ datas['score'] * 100 | round }}%</p>
 			<p>{{ datas['Inv'] }}</p>
-			<button type="button" onclick="sendPlantinfo()">Submit</button>
+			<button type="button" onclick="sendPlantinfo(thisdata)">Submit</button>
 		</div>
 		{% endfor %}
 		<!---p >This is just to show how to get the user id: {{session['id']}}<-->

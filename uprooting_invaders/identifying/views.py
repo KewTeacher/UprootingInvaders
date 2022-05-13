@@ -28,6 +28,7 @@ client = pymongo.MongoClient(os.getenv("DB_CONNECTION"))
 db = client.get_database('uprooting_invaders')
 allplants = db.all_plants
 findings = db.findings
+
 """
 data = {
     'organs': ['flower', 'leaf']
@@ -152,17 +153,21 @@ def plantid():
 
 @identifying.route('/savingid/<string:current_coords>', methods=['POST', 'GET'])
 def save_findings(current_coords):
-    finding={"loc":{}}
+    plantfinding={"loc":{}}
     coords = json.loads(current_coords)
     print("coords", file=sys.stdout)
     print(coords, file=sys.stdout)
-    finding["loc"]["latitude"]=coords["latitude"]
+    plantfinding["loc"]["latitude"]=coords["latitude"]
+    plantfinding["loc"]["longitude"]=coords["longitude"]
+    plantfinding['User']=session['id']
 
-    print(finding, file=sys.stdout)
+    print(plantfinding, file=sys.stdout)
 
 
     #This should be the code we need to insert coordinates into the MongoDB
-    #findings.insert_one(coords)
+    findings.insert_one(plantfinding)
+   
+
 
     return "hello world"
 

@@ -36,10 +36,10 @@ def home():
         dict["lng"] = i["loc"] ["longitude"]
         dict["infobox"] = "<P> hello </P>"
         if len (i["Inv"]) > 0:
-            dict["icon"] = image_path = 'static/invasive plant!.png'
+            dict["icon"] = image_path = 'static/invasive plants.png'
             invlist.append (dict)
         else:
-            dict["icon"] = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+            dict["icon"] = image_path = 'static/native plants.png'
             invlist.append (dict)
     print (invlist, file=sys.stdout)
     #print (noninvlist, file=sys.stdout)

@@ -140,12 +140,14 @@ def plantid():
 
                 #if so add the Inv data to i
 
+                #May need multiple inserts to the mongo db since we need to insert the email, data on the plant, etc. 
+                #findings.insert_one({'content': conent, 'degree': degree})
 
             return render_template('plantid.html', data=data, image=image_path, email=session["email"])
         return data,session["email"]
     else:
         return render_template('upload.html', email=session["email"])
-        #return render_template('plantid.html', data=json_result, image=image_data)
+
 
 
 @identifying.route('/savingid/<string:current_coords>', methods=['POST', 'GET'])
@@ -157,4 +159,12 @@ def save_findings(current_coords):
     finding["loc"]["latitude"]=coords["latitude"]
 
     print(finding, file=sys.stdout)
+
+
+    #This should be the code we need to insert coordinates into the MongoDB
+    #findings.insert_one(coords)
+
     return "hello world"
+
+
+

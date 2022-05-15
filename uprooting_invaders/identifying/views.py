@@ -160,7 +160,8 @@ def save_findings(current_coords):
     plantfinding["loc"]["latitude"]=coords["latitude"]
     plantfinding["loc"]["longitude"]=coords["longitude"]
     plantfinding['User']=session['id']
-
+    #plantfinding['image']=image
+    #plantfinding['data']=data
     print(plantfinding, file=sys.stdout)
 
 
@@ -168,8 +169,8 @@ def save_findings(current_coords):
     findings.insert_one(plantfinding)
    
 
-
-    return "hello world"
+    return 'hello world'
+    #return reder_template('maps.html')
 
 
 

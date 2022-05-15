@@ -28,7 +28,7 @@
 		console.log("coords", current_coords);
 		console.log("coords l string", JSON.stringify(current_coords));
 		//note the `backtick` syntax below
-		request.open('POST', `/savingid/${JSON.stringify(current_coords)}`)W
+		request.open('POST', `/savingid/${JSON.stringify(current_coords)}`)
 		//print request;
 		request.send();
 	}
@@ -37,7 +37,7 @@
 	<div>
 		{% for datas in data %}
 <script>
-	thisdata = {{ datas }};
+	thisdata = {{ data }};
 
 </script>
 		<div class="cards">

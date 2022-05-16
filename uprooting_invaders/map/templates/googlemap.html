@@ -1,17 +1,11 @@
 {% extends "base.html" %}
-{% block title %}Register System{% endblock %}
+{% block title %}Geolocation{% endblock %}
+{% block scripts %}<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="/static/index.js"></script>
+{% endblock %}
 
 {% block content %}
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Geolocation</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <link rel="stylesheet" type="text/css" href="./style.css" />
-    <script src="./index.js"></script>
-  </head>
-  <body>
     <div id="style-selector-control" class="map-control">
       <input
         type="radio"
@@ -35,7 +29,5 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUawhsXSBBvMpWVCywU1lUUtm6dDrwtME&callback=initMap&v=weekly"
       async
     ></script>
-  </body>
-</html>
 
 {% endblock %}

@@ -141,7 +141,7 @@ def plantid():
 
                 #if so add the Inv data to i
 
-                #May need multiple inserts to the mongo db since we need to insert the email, data on the plant, etc. 
+                #May need multiple inserts to the mongo db since we need to insert the email, data on the plant, etc.
                 #findings.insert_one({'content': conent, 'degree': degree})
 
             return render_template('plantid.html', data=data, image=image_path, email=session["email"])
@@ -153,25 +153,25 @@ def plantid():
 
 @identifying.route('/savingid', methods=['POST', 'GET'])
 def save_findings():
-    #plantfinding={"loc":{}}
-    plantfindings = request.form.get("")
-    coords = json.loads(current_coords)
-    print("coords", file=sys.stdout)
-    print(coords, file=sys.stdout)
-    plantfinding["loc"]["latitude"]=coords["latitude"]
-    plantfinding["loc"]["longitude"]=coords["longitude"]
-    plantfinding['User']=session['id']
+    plantfinding={"loc":{}}
+    plantfinding["loc"]["latitude"]=request.form.get("lat")
+    plantfinding["loc"]["longitude"]=request.form.get("lng")
+    plantfinding["Inv"]=json.loads(request.form.get("Inv"))
+    print(plantfinding, file=sys.stdout)
+    #coords = json.loads(current_coords)
+    #print("coords", file=sys.stdout)
+    #print(coords, file=sys.stdout)
+    #plantfinding["loc"]["latitude"]=coords["latitude"]
+    #plantfinding["loc"]["longitude"]=coords["longitude"]
+    #plantfinding['User']=session['id']
     #plantfinding['image']=image
     #plantfinding['data']=data
-    print(plantfinding, file=sys.stdout)
+
 
 
     #This should be the code we need to insert coordinates into the MongoDB
     findings.insert_one(plantfinding)
-   
+
 
     return 'hello world'
     #return reder_template('maps.html')
-
-
-

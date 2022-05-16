@@ -12,7 +12,7 @@
 			//our own js object with what we need
 			current_coords.latitude = position.coords.latitude;
 			current_coords.longitude = position.coords.longitude;
-			
+
 
 			console.log("coords", current_coords);
 			document.getElementById("coords").innerHTML = current_coords.latitude.toString() + ', ' + current_coords.longitude.toString();
@@ -23,12 +23,13 @@
 
 	function sendPlantinfo(information) {
 
-		console.log(information);
+		console.log("information ",information);
 
 		var data = new FormData();
-		data.append('loc', current_coords);
-		data.append('Scientific Name', information.species.scientificName);
-		data.append('Inv', information.Inv);
+		data.append('lat', current_coords.latitude);
+		data.append('lng', current_coords.longitude);
+		data.append('Scientific Name With Author', information.species.scientificName);
+		data.append('Inv', JSON.stringify(information.Inv));
 		data.append('Score', information.score);
 		//data.append('Image', {{ image }});
 		var xhr = new XMLHttpRequest
@@ -44,14 +45,14 @@
 	<div>
 		{% for datas in data %}
 <script>
-	thisdata = {{ datas | tojson }};
+	//let thisdata = {{ datas | tojson }};
 
 </script>
 		<div class="cards">
 			<span>{{ datas.species.scientificName }}</span>
 			<p>{{ datas['score'] * 100 | round }}%</p>
 			<p>{{ datas['Inv'] }}</p>
-			<button type="button" onclick="sendPlantinfo(thisdata)">Submit</button>
+			<button type="button" onclick="sendPlantinfo({{ datas }})">Submit</button>
 		</div>
 		{% endfor %}
 		<!---p >This is just to show how to get the user id: {{session['id']}}<-->

@@ -21,23 +21,30 @@
 		});
 	}
 
-	function sendPlantinfo(datas){
-		
-		const request = new XMLHttpRequest()
-		current_coords.datas=datas
-		console.log("coords", current_coords);
-		console.log("coords l string", JSON.stringify(current_coords));
-		//note the `backtick` syntax below
-		request.open('POST', `/savingid/${JSON.stringify(current_coords)}`)
-		//print request;
-		request.send();
+	function sendPlantinfo(information) {
+
+		console.log(information);
+
+		var data = new FormData();
+		data.append('loc', current_coords);
+		data.append('Scientific Name', information.species.scientificName);
+		data.append('Inv', information.Inv);
+		data.append('Score', information.score);
+		//data.append('Image', {{ image }});
+		var xhr = new XMLHttpRequest
+		xhr.open('POST', '/savingid', true);
+		xhr.onload = function () {
+			console.log(this.responseText)
+		};
+		xhr.send(data)
+
 	}
 </script>
 
 	<div>
 		{% for datas in data %}
 <script>
-	thisdata = {{ data }};
+	thisdata = {{ datas | tojson }};
 
 </script>
 		<div class="cards">

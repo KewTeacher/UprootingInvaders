@@ -70,7 +70,7 @@ def logged_in():
         #print(str(user_data), file=sys.stdout)
         print(str(session), file=sys.stdout)
         email = session["email"]
-        return render_template('logged_in.html', email=email)
+        return rredirect(url_for("maps"))
     else:
         return redirect(url_for("login"))
 

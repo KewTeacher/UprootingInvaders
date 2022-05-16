@@ -51,3 +51,38 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   );
   infoWindow.open(map);
 }
+
+
+  // Add controls to the map, allowing users to hide/show features.
+  const styleControl = document.getElementById("style-selector-control");
+
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(styleControl);
+  // Apply new JSON when the user chooses to hide/show features.
+  document.getElementById("hide-poi").addEventListener("click", () => {
+    map.setOptions({ styles: styles["hide"] });
+  });
+  document.getElementById("show-poi").addEventListener("click", () => {
+    map.setOptions({ styles: styles["default"] });
+  });
+}
+
+const styles = {
+  default: [],
+  hide: [
+    {
+      featureType: "poi.business",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "restaurants",
+      stylers: [{ visibility: "off"}]
+    },
+    {
+      featureType: "transit",
+      elementType: "labels.icon",
+      stylers: [{ visibility: "off" }],
+    },
+  ],
+};
+
+window.initMap = initMap;

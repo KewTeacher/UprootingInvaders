@@ -151,9 +151,10 @@ def plantid():
 
 
 
-@identifying.route('/savingid/<string:current_coords>', methods=['POST', 'GET'])
-def save_findings(current_coords):
-    plantfinding={"loc":{}}
+@identifying.route('/savingid', methods=['POST', 'GET'])
+def save_findings():
+    #plantfinding={"loc":{}}
+    plantfindings = request.form.get("")
     coords = json.loads(current_coords)
     print("coords", file=sys.stdout)
     print(coords, file=sys.stdout)

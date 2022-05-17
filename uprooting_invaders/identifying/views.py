@@ -144,7 +144,7 @@ def plantid():
                 #May need multiple inserts to the mongo db since we need to insert the email, data on the plant, etc.
                 #findings.insert_one({'content': conent, 'degree': degree})
 
-            return render_template('plantid.html', data=data, image=image_path, email=session["email"])
+            return render_template('plantid.html', data=data, image=image_path,imagename=filename, email=session["email"])
         return data,session["email"]
     else:
         return render_template('upload.html', email=session["email"])
@@ -157,6 +157,7 @@ def save_findings():
     plantfinding["loc"]["latitude"]=request.form.get("lat")
     plantfinding["loc"]["longitude"]=request.form.get("lng")
     plantfinding["Inv"]=json.loads(request.form.get("Inv"))
+    plantfinding["Image"]=request.form.get("Image")
     print(plantfinding, file=sys.stdout)
     #coords = json.loads(current_coords)
     #print("coords", file=sys.stdout)

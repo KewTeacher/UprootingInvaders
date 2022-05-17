@@ -31,7 +31,7 @@
 		data.append('Scientific Name With Author', information.species.scientificName);
 		data.append('Inv', JSON.stringify(information.Inv));
 		data.append('Score', information.score);
-		//data.append('Image', {{ image }});
+		data.append('Image', "{{ imagename }}");
 		var xhr = new XMLHttpRequest
 		xhr.open('POST', '/savingid', true);
 		xhr.onload = function () {

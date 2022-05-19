@@ -30,9 +30,12 @@
 		data.append('lng', current_coords.longitude);
 		data.append('Scientific Name With Author', information.species.scientificName);
 		data.append('Common Name', information.species.commonNames[0]);
-		if (information.inv) {
-            data.append('Inv', JSON.stringify(information.Inv));
-        }
+		//if (information.inv) {
+			data.append('Inv', JSON.stringify(information.Inv));
+		//}
+		//else {
+			data.append('Inv', [ ])
+       // }
 		data.append('Score', information.score);
 		data.append('Image', "{{ imagename }}");
 		var xhr = new XMLHttpRequest

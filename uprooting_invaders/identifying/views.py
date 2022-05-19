@@ -158,9 +158,9 @@ def save_findings():
     plantfinding={"loc":{}}
     plantfinding["loc"]["latitude"]=request.form.get("lat")
     plantfinding["loc"]["longitude"]=request.form.get("lng")
-    plantfining["Common Name"] = request.form.get("Common Name")
-    if request.form.get("Inv"): 
-        plantfinding["Inv"]=json.loads(request.form.get("Inv"))
+    plantfinding["Common Name"] = request.form.get("Common Name")
+    #if request.form.get("Inv"): 
+    plantfinding["Inv"]=json.loads(request.form.get("Inv"))
     plantfinding["Image"]=request.form.get("Image")
     plantfinding['Scientific Name With Author'] = request.form.get('Scientific Name With Author')
     print(plantfinding, file=sys.stdout)
@@ -168,7 +168,7 @@ def save_findings():
     #print(coords, file=sys.stdout)
     #plantfinding["loc"]["latitude"]=coords["latitude"]
     #plantfinding["loc"]["longitude"]=coords["longitude"]
-    plantfinding['User']=session['id']
+    plantfinding['User']=ObjectId(session['id'])
     #plantfinding['image']=image
     #plantfinding['data']=data
    

@@ -37,9 +37,9 @@ def home():
                 pass # do something else
             else:
                 pass # unknown
-        elif request.method == 'GET':
-            return render_template('googlemap.html', form=form)
-    return render_template("googlemap.html")
+        #elif request.method == 'GET':
+            #return render_template('googlemap.html', form=form)
+    #return render_template("googlemap.html")
 
     for i in found:
         dict = {}
@@ -47,7 +47,7 @@ def home():
         dict["lat"] = i["loc"] ["latitude"]
         dict["lng"] = i["loc"] ["longitude"]
         dict["infobox"] = "<P> hello </P>"
-        if len (i["Inv"]) > 0:
+        if "Inv" in i and len(i["Inv"]) > 0:
             dict["icon"] = image_path = 'static/invasive plants.png'
             invlist.append (dict)
         else:
@@ -64,4 +64,4 @@ def home():
         markers=invlist
 
     )
-    return render_template('maps.html', map=map)
+    return render_template('googlemap.html', map=map)

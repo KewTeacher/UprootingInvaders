@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Geolocation{% endblock %}
 {% block scripts %}<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-<script src="/static/index.js"></script>
+
+{{map.js}}
 {% endblock %}
 
 {% block content %}
+hello
 	<form method="post" action="/">
         <input type="submit" value="VALUE1" name="action1"/>
         <input type="submit" value="VALUE2" name="action2" />
@@ -27,11 +29,8 @@
       />
       <label for="show-poi">Show</label>
     </div>
-    <div id="map"></div>
+    <div id="map">  {{map.html}}</div>
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUawhsXSBBvMpWVCywU1lUUtm6dDrwtME&callback=initMap&v=weekly"
-      async
-    ></script>
+
 
 {% endblock %}

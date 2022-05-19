@@ -25,7 +25,7 @@ class Map(object):
         markers=None,
         map_ids=None,
         varname="map",
-        style="height:300px;width:300px;margin:0;",
+        style="height:70vh;width:100%;margin:0;",
         cls="map",
         language="en",
         region="US",
@@ -765,8 +765,8 @@ class Map(object):
             raise AttributeError("Latitude must be between -90 and 90 degrees inclusive.")
         if not (180 >= lng >= -180):
             raise AttributeError("Longitude must be between -180 and 180 degrees inclusive.")
-        
-        return (lat,lng) 
+
+        return (lat,lng)
 
     @property
     def js(self):

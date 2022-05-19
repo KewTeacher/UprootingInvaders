@@ -154,13 +154,15 @@ def plantid():
 
 @identifying.route('/savingid', methods=['POST', 'GET'])
 def save_findings():
-    
+
     plantfinding={"loc":{}}
     plantfinding["loc"]["latitude"]=request.form.get("lat")
     plantfinding["loc"]["longitude"]=request.form.get("lng")
     plantfinding["Common Name"] = request.form.get("Common Name")
-    #if request.form.get("Inv"): 
-    plantfinding["Inv"]=json.loads(request.form.get("Inv"))
+    try:
+        plantfinding["Inv"]=json.loads(request.form.get("Inv"))
+    except:
+        print("not invasive", file=sys.stdout)
     plantfinding["Image"]=request.form.get("Image")
     plantfinding['Scientific Name With Author'] = request.form.get('Scientific Name With Author')
     print(plantfinding, file=sys.stdout)
@@ -171,12 +173,12 @@ def save_findings():
     plantfinding['User']=ObjectId(session['id'])
     #plantfinding['image']=image
     #plantfinding['data']=data
-   
+
 
 
     #This should be the code we need to insert coordinates into the MongoDB
     findings.insert_one(plantfinding)
 
 
-    return redirect ('/maps')
+    return redirect('/maps')
     #return reder_template('maps.html')

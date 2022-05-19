@@ -46,7 +46,7 @@ def home():
         print (i, file=sys.stdout)
         dict["lat"] = i["loc"] ["latitude"]
         dict["lng"] = i["loc"] ["longitude"]
-        dict["infobox"] = "<P> hello </P>"
+        dict["infobox"] = "<P>"+i["Common Name"]+ " </P>"
         if "Inv" in i and len(i["Inv"]) > 0:
             dict["icon"] = image_path = 'static/invasive plants.png'
             invlist.append (dict)

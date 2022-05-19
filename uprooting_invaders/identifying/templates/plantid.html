@@ -29,7 +29,10 @@
 		data.append('lat', current_coords.latitude);
 		data.append('lng', current_coords.longitude);
 		data.append('Scientific Name With Author', information.species.scientificName);
-		data.append('Inv', JSON.stringify(information.Inv));
+		data.append('Common Name', information.species.commonNames[0]);
+		if (information.inv) {
+            data.append('Inv', JSON.stringify(information.Inv));
+        }
 		data.append('Score', information.score);
 		data.append('Image', "{{ imagename }}");
 		var xhr = new XMLHttpRequest

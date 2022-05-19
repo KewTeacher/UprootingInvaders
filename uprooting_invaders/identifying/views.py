@@ -8,6 +8,7 @@ import os
 import logging
 import sys
 import pymongo
+from bson import ObjectId
 
 # Blueprint Configuration
 identifying = Blueprint(
@@ -153,26 +154,29 @@ def plantid():
 
 @identifying.route('/savingid', methods=['POST', 'GET'])
 def save_findings():
+    
     plantfinding={"loc":{}}
     plantfinding["loc"]["latitude"]=request.form.get("lat")
     plantfinding["loc"]["longitude"]=request.form.get("lng")
-    plantfinding["Inv"]=json.loads(request.form.get("Inv"))
+    plantfining["Common Name"] = request.form.get("Common Name")
+    if request.form.get("Inv"): 
+        plantfinding["Inv"]=json.loads(request.form.get("Inv"))
     plantfinding["Image"]=request.form.get("Image")
+    plantfinding['Scientific Name With Author'] = request.form.get('Scientific Name With Author')
     print(plantfinding, file=sys.stdout)
-    #coords = json.loads(current_coords)
     #print("coords", file=sys.stdout)
     #print(coords, file=sys.stdout)
     #plantfinding["loc"]["latitude"]=coords["latitude"]
     #plantfinding["loc"]["longitude"]=coords["longitude"]
-    #plantfinding['User']=session['id']
+    plantfinding['User']=session['id']
     #plantfinding['image']=image
     #plantfinding['data']=data
-
+   
 
 
     #This should be the code we need to insert coordinates into the MongoDB
     findings.insert_one(plantfinding)
 
 
-    return 'hello world'
+    return redirect ('/maps')
     #return reder_template('maps.html')

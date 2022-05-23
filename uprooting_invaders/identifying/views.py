@@ -180,5 +180,5 @@ def save_findings():
     findings.insert_one(plantfinding)
 
 
-    return redirect('/maps', code=302)
+    return redirect(url_for("map.home"), code=303)
     #return reder_template('maps.html')

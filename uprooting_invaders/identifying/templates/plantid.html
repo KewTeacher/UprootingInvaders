@@ -39,11 +39,11 @@
 		data.append('Score', information.score);
 		data.append('Image', "{{ imagename }}");
 		var xhr = new XMLHttpRequest
-		xhr.open('POST', '/savingid', true);
-		xhr.onload = function () {
-			console.log(this.responseText)
-		};
-		xhr.send(data)
+		xhr.open('POST', '/savingid', false);
+		//xhr.onload = function () {console.log(this.responseText)};
+		//xhr.setRequestHeader("Content-type", "multipart/form-data");
+		xhr.send(data);
+		window.location = "/maps";
 
 	}
 </script>

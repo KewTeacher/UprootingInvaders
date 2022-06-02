@@ -6,29 +6,11 @@
 {% endblock %}
 
 {% block content %}
-hello
-	<form method="post" action="/">
-        <input type="submit" value="VALUE1" name="action1"/>
-        <input type="submit" value="VALUE2" name="action2" />
-    </form>
-
-    <div id="style-selector-control" class="map-control">
-      <input
-        type="radio"
-        name="show-hide"
-        id="hide-poi"
-        class="selector-control"
-      />
-      <label for="hide-poi">Hide</label>
-      <input
-        type="radio"
-        name="show-hide"
-        id="show-poi"
-        class="selector-control"
-        checked="checked"
-      />
-      <label for="show-poi">Show</label>
-    </div>
+{% if session['id'] %}
+<p></p>
+<button type="button" onclick="window.location.href='/plantid';">ID a Plant</button>
+ {% endif %}
+<p></p>
     <div id="map">  {{map.html}}</div>
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
 

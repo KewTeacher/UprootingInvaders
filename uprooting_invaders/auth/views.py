@@ -26,7 +26,7 @@ records = db.register
 def index():
     message = ''
     if "email" in session:
-        return redirect(url_for("auth.logged_in"))
+        return redirect(url_for("map.home"))
     if request.method == "POST":
         user = request.form.get("fullname")
         email = request.form.get("email")
@@ -55,7 +55,8 @@ def index():
             new_email = user_data['email']
             print(str(user_data), file=sys.stdout)
 
-            return render_template('logged_in.html', email=new_email, user_data=str(user_data))
+            return redirect(url_for("auth.login"))
+            #return render_template('logged_in.html', email=new_email, user_data=str(user_data))
     return render_template('index.html')
 
 #end of code to run it
@@ -80,7 +81,7 @@ def logged_in():
 def login():
     message = 'Please login to your account'
     if "email" in session:
-        return redirect(url_for("auth.logged_in"))
+        return redirect(url_for("map.home"))
 
     if request.method == "POST":
         email = request.form.get("email")
@@ -97,10 +98,10 @@ def login():
                 session["name"]= email_found['name']
                 session['id']=str(email_found['_id'])
                 print(session, file=sys.stdout)
-                return redirect(url_for('auth.logged_in'))
+                return redirect(url_for('map.home'))
             else:
                 if "email" in session:
-                    return redirect(url_for("auth.logged_in"))
+                    return redirect(url_for("map.home"))
                 message = 'Wrong password'
                 return render_template('login.html', message=message)
         else:
@@ -114,6 +115,7 @@ def login():
 def logout():
     if "email" in session:
         session.pop("email", None)
+        session.pop("id", None)
         return render_template("signout.html")
     else:
         return render_template('index.html')

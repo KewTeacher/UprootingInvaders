@@ -55,9 +55,12 @@
 
 </script>
 		<div class="cards">
-			<span>{{ datas.species.scientificName }}</span>
-			<p>{{ datas['score'] * 100 | round }}%</p>
-			<p>{{ datas['Inv'] }}</p>
+			<p>Scientific Name {{ datas.species.scientificName }}</p>
+			<p>Commmon Names {{ datas.species.commonNames }}</p>
+			<p>Accuracy {{ datas['score'] * 100 | round }}%</p>
+			{% if  datas['Inv'] %}
+			<p>Invasive in: {{ datas['Inv'] }}</p>
+			 {% endif %}
 			<button type="button" onclick="sendPlantinfo({{ datas }})">Submit</button>
 		</div>
 		{% endfor %}

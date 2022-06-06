@@ -9,6 +9,7 @@ import logging
 import sys
 import pymongo
 from bson import ObjectId
+import datetime
 
 # Blueprint Configuration
 identifying = Blueprint(
@@ -171,6 +172,7 @@ def save_findings():
     #plantfinding["loc"]["latitude"]=coords["latitude"]
     #plantfinding["loc"]["longitude"]=coords["longitude"]
     plantfinding['User']=ObjectId(session['id'])
+    plantfinding['created']= datetime.datetime.utcnow()
     #plantfinding['image']=image
     #plantfinding['data']=data
 
@@ -180,5 +182,5 @@ def save_findings():
     findings.insert_one(plantfinding)
 
 
-    return redirect(url_for("map.home"), code=303)
+    #return redirect(url_for("map.home"), code=303)
     #return reder_template('maps.html')

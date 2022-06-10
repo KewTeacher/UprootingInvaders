@@ -29,7 +29,7 @@ def home():
     invlist = []
     noninvlist = []
 
-    
+
 
     for i in found:
         dict = {}
@@ -43,7 +43,7 @@ def home():
         else:
             dict["icon"] = image_path = 'static/native plants.png'
             invlist.append (dict)
-    print (invlist, file=sys.stdout)
+    #print (invlist, file=sys.stdout)
     #print (noninvlist, file=sys.stdout)
 
     map = Map(

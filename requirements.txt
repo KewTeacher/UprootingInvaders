@@ -12,6 +12,7 @@ colorama==0.4.4
 debugpy==1.5.1
 decorator==5.1.1
 defusedxml==0.7.1
+python-dotenv==0.20.0
 dnspython==2.1.0
 entrypoints==0.3
 executing==0.8.2

@@ -22,15 +22,15 @@ application = Flask(__name__, static_url_path='/static')
 #load_dotenv()
 
 application.secret_key = "testing"
-#client = pymongo.MongoClient("", tlsInsecure=True)
-client = pymongo.MongoClient(os.getenv("DB_CONNECTION"), tlsInsecure=True)
+client = pymongo.MongoClient("Mongo connection String Here", tlsInsecure=True)
+#client = pymongo.MongoClient(os.getenv("DB_CONNECTION"), tlsInsecure=True)
 db = client.get_database('uprooting_invaders')
 records = db.register
 global currentfilename
 currentfilename = ""
 
 
-GoogleMaps(application, key="AIzaSyBOc6YjLuu1JFtd6W4VouZBeEFe3-5ThQ0")
+GoogleMaps(application, key="Map key here")
 #GoogleMaps(application, key=os.getenv("GOOGLE_MAPS_API"))
 #User Information stuff
 

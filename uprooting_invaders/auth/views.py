@@ -17,7 +17,8 @@ auth = Blueprint(
 )
 
 auth.secret_key = "testing"
-client = pymongo.MongoClient(os.getenv("DB_CONNECTION"))
+client = pymongo.MongoClient(""Mongo connection String Here", tlsInsecure=True)
+#client = pymongo.MongoClient(os.getenv("DB_CONNECTION"))
 db = client.get_database('uprooting_invaders')
 records = db.register
 

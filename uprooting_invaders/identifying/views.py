@@ -26,7 +26,9 @@ api_endpoint = f"https://my-api.plantnet.org/v2/identify/all?api-key={API_KEY}"
 
 
 identifying.secret_key = "testing"
-client = pymongo.MongoClient(os.getenv("DB_CONNECTION"))
+client = pymongo.MongoClient("Mongo connection String Here", tlsInsecure=True)
+
+#client = pymongo.MongoClient(os.getenv("DB_CONNECTION"))
 db = client.get_database('uprooting_invaders')
 allplants = db.all_plants
 findings = db.findings

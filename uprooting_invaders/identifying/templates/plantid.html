@@ -4,27 +4,69 @@
 
 <script type="text/javascript">
 		var current_coords = {};
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(function (position) {
-			//initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-			//it looks like the geolocation object just won't json stringify so let's build up
-			//our own js object with what we need
-			current_coords.latitude = position.coords.latitude;
-			current_coords.longitude = position.coords.longitude;
+		function locationSuccess(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    const altitude = position.coords.altitude;
+    const accuracy = position.coords.accuracy;
+    const altitudeAccuracy = position.coords.altitudeAccuracy;
+    const heading = position.coords.height;
+    const speed = position.coords.speed;
+    const timestamp = position.timestamp;
+
+		current_coords.latitude = latitude;
+		current_coords.longitude = longitude;
+		console.log("coords ", current_coords);
 
 
-			console.log("coords", current_coords);
-			document.getElementById("coords").innerHTML = current_coords.latitude.toString() + ', ' + current_coords.longitude.toString();
+    // work with this information however you'd like!
+}
+var apiGeolocationSuccess = function(position) {
+    alert("API geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
+		current_coords.latitude = position.coords.latitude;
+		current_coords.longitude = position.coords.longitude;
+		console.log("coords ", current_coords);
+};
+var tryAPIGeolocation = function() {
+    $.post( "https://maps.googleapis.com/maps/api/js?key=google map key here", function(success) {
+        apiGeolocationSuccess({coords: {latitude: success.location.lat, longitude: success.location.lng}});
+    })
+        .fail(function(err) {
+            alert("API Geolocation error! \n\n"+err.toString());
+        });
+};
+
+function tryApiListener () {
+  console.log("tryApi response". this.responseText);
+	current_coords.latitude = success.location.lat;
+	current_coords.longitude = success.location.lng;
+	console.log("coords ", current_coords);
+}
+
+function locationError(error) {
+    const code = error.code;
+    const message = error.message;
+		console.log("error code ", code);
+		console.log("message ", message);
+		tryAPIGeolocation()
+		/*
+		var tryApi = new XMLHttpRequest;
+		tryApi.addEventListener("load", tryApiListener);
+		tryApi.open('POST', 'https://www.googleapis.com/geolocation/v1/geolocate?key=AAIzaSyBOc6YjLuu1JFtd6W4VouZBeEFe3-5ThQ0');
+		tryApi.send()*/
+    // read the code and message and decide how you want to handle this!
+}
 
 
-		});
-	}
+
+//	}
 
 	function sendPlantinfo(information) {
 
 		console.log("information ",information);
 
+		console.log("coords 2", current_coords);
 		var data = new FormData();
 		data.append('lat', current_coords.latitude);
 		data.append('lng', current_coords.longitude);
@@ -65,12 +107,15 @@
 		</div>
 		{% endfor %}
 		<!---p >This is just to show how to get the user id: {{session['id']}}<-->
-		<p>This is to show the coords: <span id="coords"></span></p>
+		<!-- <p>This is to show the coords: <span id="coords"></span></p>-->
 		<img src= "{{image }}"
 			 alt ="image"
 			 width="450"
 			 height="500">
 
 	</div>
+	<script type="text/javascript">
+		navigator.geolocation.getCurrentPosition(locationSuccess, locationError);
+	</script>
 
 {% endblock content %}
